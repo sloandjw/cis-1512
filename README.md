@@ -28,14 +28,13 @@ Do not work on main.
 Do not work on main!!!
 Create a branch before working!
 
-
-`git checkout -b feat/<your-feature>`
+`git checkout -b <your-branch>`
 
 Commit and push your work on your branch
 
 `git add .`
 `git commit -m "Describe what you changed"`
-`git push -u origin feat/<your-feature>`
+`git push -u origin <your-branch>`
 
 Then open a Pull Request on GitHub.
 
