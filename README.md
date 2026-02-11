@@ -10,10 +10,10 @@ Clone the Repository in a terminal
 `git clone https://github.com/sloandjw/cis-1512.git`
 
 In VS Code:
-File → Open Folder → select the repo folder
+File → Open Folder → select your local repo folder
 
-4. Install Live Server
-Click the Extensions icon (four squares)
+Install Live Server:
+Go to Extensions
 Search Live Server
 Install Live Server by Ritwick Dey
 (This allows you to view the website live while working on it)
