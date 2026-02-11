@@ -1,4 +1,4 @@
-# cis-1512
+# ArcadeHub
 CIS-1512 Software Engineering Project
 
 Install Git: https://git-scm.com/downloads
