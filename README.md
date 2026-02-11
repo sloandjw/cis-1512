@@ -1,39 +1,38 @@
 # ArcadeHub
 CIS-1512 Software Engineering Project
 
-Install Git: https://git-scm.com/downloads
+Install Git: https://git-scm.com/downloads<br />
 Install Visual Studio Code: https://code.visualstudio.com/
 
-Create a local folder called arcadehub on your local computer.
-Clone the Repository in a terminal
-`cd arcadehub`
+Create a local folder called arcadehub on your local computer<br />
+Clone the Repository in a terminal<br />
+`cd arcadehub`<br />
 `git clone https://github.com/sloandjw/cis-1512.git`
 
-In VS Code:
+In VS Code:<br />
 File → Open Folder → select your local repo folder
 
-Install Live Server:
-Go to Extensions
-Search Live Server
-Install Live Server by Ritwick Dey
-(This allows you to view the website live while working on it)
+Install Live Server:<br />
+Go to Extensions<br />
+Search Live Server<br />
+Install Live Server by Ritwick Dey<br />
+(This allows you to view the website live while working on it)<br />
+<br />
+Pull main<br />
 
-Pull main
-
-`git checkout main`
+`git checkout main`<br />
 `git pull`
 
-Do not work on main.
-Do not work on main.
-Do not work on main!!!
+Do not work on main.<br />
+Do not work on main!!!<br />
 Create a branch before working!
 
 `git checkout -b <your-branch>`
 
 Commit and push your work on your branch
 
-`git add .`
-`git commit -m "Describe what you changed"`
+`git add .`<br />
+`git commit -m "Describe what you changed"`<br />
 `git push -u origin <your-branch>`
 
 Then open a Pull Request on GitHub.
