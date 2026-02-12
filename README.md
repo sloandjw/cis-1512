@@ -8,6 +8,7 @@ Create a folder called <i>arcadehub</i> on your local computer<br />
 Clone the GitHub repository in a terminal<br />
 `cd arcadehub`<br />
 `git clone https://github.com/sloandjw/cis-1512.git`<br />
+`cd cis-1512`<br />
 <br />
 Pull Main<br />
 `git checkout main`<br />
