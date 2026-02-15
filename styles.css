@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu {
+  display: flex;
+  gap: 60px;
+}
+
+.button {
+  display: inline-block;
+  padding: 16px 32px;
+  border: 2px solid black;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 22px;
+}
