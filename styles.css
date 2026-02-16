@@ -25,3 +25,14 @@ body {
   text-decoration: none;
   font-size: 22px;
 }
+
+.main-title {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    color: #ff4c4c;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
