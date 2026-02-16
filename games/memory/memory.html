@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Match</title>
+    <link rel="stylesheet" href="memory.css" />
+</head>
+<body>
+<header>
+    <h1>Memory Match</h1>
+    <nav>
+        <a href="../hub.html" class="button">Back to Hub</a>
+        <button id="toggle-memory">Start Game</button>
+    </nav>
+</header>
+<main>
+    <section id="memory-mode" class="game-mode" hidden>
+        <h2>Memory Match</h2>
+        <div id="memory-grid" class="grid" role="grid" aria-label="Memory card grid"></div>
+        <div class="game-info">
+            <p id="moves">Moves: 0</p>
+            <p id="status" aria-live="polite">Start matching cards!</p>
+            <ol>Instructions: 
+                <li>Flip over cards to find matching pairs</li>
+                <li>Only flip two cards at a time </li>
+                <li>When all matching pairs are found, the game is over</li>
+            </ol>
+        </div>
+        <button id="reset-btn">Reset</button>
+    </section>
+</main>
+    <script src="memory.js"></script>
+</body>
+</html>
