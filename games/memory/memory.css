@@ -16,10 +16,14 @@ nav {
     margin-top: 1rem;
 }
 
-nav button {
-    margin: 0 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+button {
+  display: inline-block;
+  padding: 16px 32px;
+  border: 2px solid black;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 22px;
+  background-color: white;
 }
 
 main {
@@ -86,4 +90,20 @@ main {
 
 .memory-card.flipped .card-back {
   display: flex;
+}
+
+.button {
+    display: inline-block;
+    padding: 16px 32px;
+    border: 2px solid black;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 22px;
+    background-color: white;
+}
+nav a:link {
+    color: black;
+}
+nav a:visited {
+    color: black;
 }

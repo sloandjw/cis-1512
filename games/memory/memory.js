@@ -3,6 +3,11 @@ document.getElementById("toggle-memory").addEventListener("click", () => {
     renderMemoryGrid();
 });
 
+document.getElementById("reset-btn").addEventListener("click", () => {
+    document.getElementById("memory-mode").hidden = false;
+    renderMemoryGrid();
+});
+
 const memoryCards = [
     { id: 1, label: "HTML", pairId: "html" },
     { id: 2, label: "HTML", pairId: "html" },
