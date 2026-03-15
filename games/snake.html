@@ -6,10 +6,31 @@
   <link rel="stylesheet" href="../shared/shared.css">
 </head>
 <body class="centered">
-
-  <h1>Snake View</h1>
-
-  <a href="../hub.html" class="button">Back to Hub</a>
-
+    <h1>Snake</h1>
+    
+    <div class="game-container">
+        <div class="score-row">
+            <div class="score-box">
+                Score
+                <span id="current-score">0</span>
+            </div>
+            <div class="score-box">
+                High Score
+                <span id="high-score">0</span>
+            </div>
+        </div>
+        
+        <div class="game-screen" id="game-canvas">
+            <!-- Future canvas/game grid goes here -->
+            Game Loading...
+        </div>
+        
+        <p class="game-description">
+            Use arrow keys to control the snake. Eat food to grow longer 
+            and increase your score. Don't hit the walls or yourself!
+        </p>
+    </div>
+    
+    <a href="../hub.html" class="button">Back to Hub</a>
 </body>
 </html>
