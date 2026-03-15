@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.menu {
+  display: flex;
+  gap: 60px;
+}
+
+.button {
+  display: inline-block;
+  padding: 16px 32px;
+  border: 2px solid black;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 22px;
+}
+
+.main-title {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    color: #ff4c4c;
+  }
+
+.subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
