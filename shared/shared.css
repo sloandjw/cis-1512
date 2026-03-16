@@ -27,7 +27,8 @@ body {
   color: white;
   text-align: center;
   background-color: transparent;
-  margin-bottom: 100px;
+  margin: 20px;
+  margin-bottom: 80px;
 }
 
 .input:focus {
@@ -46,7 +47,7 @@ body {
   background-color: transparent;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 
 .reset-button {
@@ -69,7 +70,7 @@ body {
 
 .subtitle {
     font-size: 2rem;
-    margin-bottom: 30px;
+    margin: 20px;
   }
 
 .input-container {
