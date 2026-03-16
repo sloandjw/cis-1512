@@ -9,12 +9,23 @@
 </head>
 <body class="centered">
 
-
   <h1 class ="main-title"> Welcome to ArcadeHub! </h1>
 
   <p class="subtitle">The Ultimate Student Arcade Experience</p>
 
-  <a href="hub.html" class="button">Enter Arcade</a>
+  <div id="new-player-section" style="display:none;">
+    <p class="subtitle centered">Please enter your name:</p>
+    <input type="text" id="player-name-input" class="input" maxlength="20" autocomplete="off">
+    <button id="save-player-name" class="button">Continue</button>
+  </div>
+
+  <div id="returning-player-section" style="display:none;">
+    <p class="subtitle centered" id="returning-player-message"></p>
+    <a href="hub.html" class="button">Enter Arcade</a>
+    <button id="reset-player" class="reset-button">Reset Player</button>
+  </div>
+
+  
   
   <!--
   <h1>Hello, World!</h1>

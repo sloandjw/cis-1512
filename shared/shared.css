@@ -9,12 +9,21 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .menu {
   display: flex;
   gap: 60px;
+}
+
+.input {
+  padding: 8px 12px;
+  font-size: 36px;
+  border: 2px solid black;
+  border-radius: 4px;
+  margin: 10px;
+  text-align: center;
 }
 
 .button {
@@ -26,6 +35,14 @@ body {
   font-size: 22px;
 }
 
+.reset-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 20px;
+  padding: 4px 8px;
+}
+
 .main-title {
     font-size: 4rem;
     margin-bottom: 10px;
@@ -33,6 +50,6 @@ body {
   }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: 2rem;
     margin-bottom: 30px;
   }
