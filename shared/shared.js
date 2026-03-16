@@ -40,7 +40,7 @@ async function initializePlayer() {
     return;
   } 
     if (returningPlayerSection && returningPlayerMessage) {
-        returningPlayerMessage.textContent = `Player Name: ${playerName}!`;
+        returningPlayerMessage.textContent = `Player: ${playerName}`;
         returningPlayerSection.style.display = "block";
     }
 }
