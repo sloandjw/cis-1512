@@ -1,3 +1,10 @@
+/* shared.css
+* This file contains styles that are shared across multiple pages in the arcade hub.
+* Add any common styles here to maintain a consistent look and feel across the site.
+*/
+
+/* global styles */
+
 body {
   background-color: black;
   color: white;
@@ -18,6 +25,17 @@ body {
   gap: 60px;
 }
 
+.main-title {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    color: #ff4c4c;
+  }
+
+.subtitle {
+    font-size: 2rem;
+    margin: 20px;
+  }
+
 .input {
   padding: 8px 12px;
   font-size: 36px;
@@ -35,6 +53,12 @@ body {
   outline: none;
   box-shadow: 0 0 10px red;
 }
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
 
 .button {
   display: flex;
@@ -62,19 +86,3 @@ body {
   background-color: transparent;
 }
 
-.main-title {
-    font-size: 4rem;
-    margin-bottom: 10px;
-    color: #ff4c4c;
-  }
-
-.subtitle {
-    font-size: 2rem;
-    margin: 20px;
-  }
-
-.input-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }

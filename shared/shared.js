@@ -1,6 +1,18 @@
+// global variables
+// add any global variables that are shared between multiple pages here
+
+// ...
+
+// shared javascript functions
+// add functions that are shared between multiple pages here
+
+// generate a unique player ID using the Web Crypto API
+
 function generatePlayerId() {
   return crypto.randomUUID();
 }
+
+// initialize player data on page load
 
 async function initializePlayer() {
   let playerId = localStorage.getItem("playerId");
@@ -45,9 +57,11 @@ async function initializePlayer() {
     }
 }
 
+// register player on the server
+
 async function registerPlayer(playerId, playerName) {
   try {
-    const response = await fetch("http://localhost:3000/api/players", {
+    const response = await fetch("/api/players", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -69,6 +83,8 @@ async function registerPlayer(playerId, playerName) {
   }
 }
 
+// helper functions to get player data
+
 function getPlayerId() {
   return localStorage.getItem("playerId");
 }
@@ -76,6 +92,8 @@ function getPlayerId() {
 function getPlayerName() {
   return localStorage.getItem("playerName");
 }
+
+//run when page loads
 
 document.addEventListener("DOMContentLoaded", () => {
 
