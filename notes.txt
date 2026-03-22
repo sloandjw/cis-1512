@@ -1,0 +1,54 @@
+***clear saved player info in browser***
+
+localStorage.removeItem("playerName");
+localStorage.removeItem("playerId");
+
+***git commands***
+
+git checkout main
+git pull origin main
+git pull origin main --no-rebase
+git fetch origin
+git checkout -b your-branch-name
+git add .
+git commit -m "Describe your changes here"
+git push origin your-branch-name
+git stash && git pull origin main && git stash pop
+git reset --hard HEAD
+git reset --hard origin/combos
+git clean -f -d
+
+
+***node server***
+
+creation
+
+ssh -i ~/.ssh/nodeserver root@162.243.174.19
+
+apt update && apt upgrade -y
+
+apt install -y nodejs npm
+
+node -v
+
+
+npm -v
+
+apt install -y git
+
+git clone https://github.com/sloandjw/cis-1512
+
+cd arcadehub/arcadehub-server
+
+npm install
+
+npm install
+
+http://162.243.174.19:3000
+
+
+**maintenance**
+
+install PM2
+
+npm install -g pm2
