@@ -1,11 +1,18 @@
 //server connection info
-const ip = "http://162.243.174.19";
-const port = "3000";
+const isLocal =
+  location.hostname === "127.0.0.1" ||
+  location.hostname === "localhost";
+const apiBase = isLocal
+  ? "http://162.243.174.19"
+  : "";
 
 // generate a unique player ID using the Web Crypto API
 
 function generatePlayerId() {
-  return crypto.randomUUID();
+  if (window.crypto && typeof window.crypto.randomUUID === "function") {
+    return window.crypto.randomUUID();
+  }
+  return "player-" + Date.now() + "-" + Math.floor(Math.random() * 1000000);
 }
 
 // initialize player data on page load
@@ -71,7 +78,7 @@ async function initializePlayer() {
 async function registerPlayer(playerId, playerName) {
   try {
     //const response = await fetch("/api/players", {
-    const response = await fetch(`${ip}/api/players`, {
+    const response = await fetch(`${apiBase}/api/players`, {
     method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -82,8 +82,12 @@ ufw enable
 
 **debug**
 
+
+162.243.174.19/index.html
 162.243.174.19/debug/players
 162.243.174.19/debug/scores
+162.243.174.19/leaderboard
+
 
 **update server repo**
 git fetch origin
@@ -96,3 +100,11 @@ pm2 restart all
 **server status**
 pm2 list
 pm2 status
+
+**reset db**
+rm scores.db
+pm2 restart all
+
+** reload Nginx**
+sudo nginx -t
+sudo systemctl reload nginx

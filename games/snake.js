@@ -57,7 +57,8 @@ async function submitScore() {
     }
 
     try {
-        const response = await fetch(`${ip}/api/scores`, {
+        //const response = await fetch(`/api/scores`, {
+        const response = await fetch(`${apiBase}/api/scores`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
