@@ -1,6 +1,6 @@
 
 //declarations
-const gameName = "snake";
+const gameName = "Snake";
 
 const startSection = document.getElementById("start-section");
 const gameSection = document.getElementById("game-section");

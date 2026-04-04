@@ -84,3 +84,8 @@ ufw enable
 
 162.243.174.19/debug/players
 162.243.174.19/debug/scores
+
+**update server repo**
+git fetch origin
+git checkout returning-user
+git pull origin returning-user
