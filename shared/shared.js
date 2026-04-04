@@ -9,7 +9,7 @@ const isLocal =
 
 const apiBase = isLocal
   ? "http://162.243.174.19"
-  : "https://sloandjw.github.io";
+  : "https://sloandjw.github.io/cis-1512";
 
 // shared javascript functions
 // add functions that are shared between multiple pages here
