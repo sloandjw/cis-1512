@@ -1,112 +1,44 @@
 // global variables
 // add any global variables that are shared between multiple pages here
 
-// ...
+//server connection info
+const ip = "http://162.243.174.19";
 
 // shared javascript functions
 // add functions that are shared between multiple pages here
 
-// generate a unique player ID using the Web Crypto API
-
-function generatePlayerId() {
-  return crypto.randomUUID();
-}
-
-// initialize player data on page load
-
-async function initializePlayer() {
-  let playerId = localStorage.getItem("playerId");
-  let playerName = localStorage.getItem("playerName");
-
-  const newPlayerSection = document.getElementById("new-player-section");
-  const returningPlayerSection = document.getElementById("returning-player-section");
-  const returningPlayerMessage = document.getElementById("returning-player-message");
-  const saveButton = document.getElementById("save-player-name");
-  const input = document.getElementById("player-name-input");
-
-//   console.log("playerId:", playerId);
-  console.log("playerName:", playerName);
-
-  if (!playerId) {
-    playerId = generatePlayerId();
-    localStorage.setItem("playerId", playerId);
-  }
-
-  if (!playerName) {
-    if (newPlayerSection) {
-      newPlayerSection.style.display = "block";
-    }
-
-    if (saveButton && input) {
-      saveButton.onclick = async () => {
-        const enteredName = input.value.trim();
-        if (!enteredName) {return;}
-        localStorage.setItem("playerName", enteredName);
-        const data = await registerPlayer(playerId, enteredName);
-        console.log(data);
-        if (newPlayerSection) {
-          newPlayerSection.style.display = "none";
+async function loadLeaderboard() {
+    const leaderboardBody = document.getElementById("leaderboard-body");
+    if (!leaderboardBody) return;
+    leaderboardBody.innerHTML = `<tr><td colspan="4">Loading leaderboard...</td></tr>`;
+    try {
+        const response = await fetch(`${ip}/leaderboard`);
+        const scores = await response.json();
+        if (!response.ok) {
+            leaderboardBody.innerHTML = `<tr><td colspan="4">Failed to load leaderboard.</td></tr>`;
+            console.error("Leaderboard error:", scores);
+            return;
         }
-      };
+        if (scores.length === 0) {
+            leaderboardBody.innerHTML = `<tr><td colspan="4">No scores yet.</td></tr>`;
+            console.error("Leaderboard error:", scores);
+            return;
+        }
+        leaderboardBody.innerHTML = "";
+        scores.forEach((entry, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${entry.player_name}</td>
+                <td>${entry.game_name}</td>
+                <td>${entry.score}</td>
+            `;
+            leaderboardBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Error loading leaderboard:", error);
+        leaderboardBody.innerHTML = `<tr><td colspan="4">Error loading leaderboard.</td></tr>`;
     }
-    return;
-  } 
-    if (returningPlayerSection && returningPlayerMessage) {
-        returningPlayerMessage.textContent = `Player: ${playerName}`;
-        returningPlayerSection.style.display = "block";
-    }
 }
 
-// register player on the server
-
-async function registerPlayer(playerId, playerName) {
-  try {
-    const response = await fetch("/api/players", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        player_id: playerId,
-        player_name: playerName
-      })
-    });
-
-    const data = await response.json();
-    console.log("Player initialization:", data);
-
-    return data;
-
-  } catch (error) {
-    console.error("Failed to initialize player:", error);
-    return null;
-  }
-}
-
-// helper functions to get player data
-
-function getPlayerId() {
-  return localStorage.getItem("playerId");
-}
-
-function getPlayerName() {
-  return localStorage.getItem("playerName");
-}
-
-//run when page loads
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  initializePlayer();
-
-  const resetButton = document.getElementById("reset-player");
-  if (resetButton) {
-    resetButton.addEventListener("click", () => {
-      localStorage.removeItem("playerName");
-      localStorage.removeItem("playerId");
-      console.log("Player data cleared");
-      location.reload();
-    });
-  }
-
-});
+document.addEventListener("DOMContentLoaded", loadLeaderboard);

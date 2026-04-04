@@ -5,6 +5,9 @@
 
 /* global styles */
 
+
+  /***** text syles *****/
+
 body {
   background-color: black;
   color: white;
@@ -36,6 +39,8 @@ body {
     margin: 20px;
   }
 
+  /***** input *****/
+
 .input {
   padding: 8px 12px;
   font-size: 36px;
@@ -60,6 +65,8 @@ body {
     gap: 10px;
   }
 
+  /***** buttons *****/
+
 .button {
   display: flex;
   padding: 20px 40px;
@@ -72,6 +79,18 @@ body {
   align-items: center;
   justify-content: center;
   margin: 10px auto;
+  cursor: pointer;
+}
+
+.test-button {
+    padding: 8px 14px;
+    font-size: 24px;
+    font-family: monospace;
+    background-color: #111;
+    color: #00ff00;
+    border: 2px dashed #00ff00;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .reset-button {
@@ -84,5 +103,31 @@ body {
   color: white;
   border: 2px solid rgb(255, 0, 0);
   background-color: transparent;
+  cursor: pointer;
 }
 
+/***** leaderboard *****/
+
+.leaderboard-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    max-width: 600px;
+}
+
+#leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#leaderboard-table th,
+#leaderboard-table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+#leaderboard-table th {
+    font-weight: bold;
+}
