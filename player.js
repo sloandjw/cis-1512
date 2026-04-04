@@ -12,7 +12,6 @@ function generatePlayerId() {
   if (window.crypto && typeof window.crypto.randomUUID === "function") {
     return window.crypto.randomUUID();
   }
-
   return "player-" + Date.now() + "-" + Math.floor(Math.random() * 1000000);
 }
 
