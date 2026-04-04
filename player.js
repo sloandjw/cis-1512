@@ -1,6 +1,7 @@
-//declarations
+//server connection info
 const ip = "http://162.243.174.19";
 const port = "3000";
+
 // generate a unique player ID using the Web Crypto API
 
 function generatePlayerId() {

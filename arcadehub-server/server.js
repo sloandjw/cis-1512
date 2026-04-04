@@ -8,6 +8,10 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
+app.set("json spaces", 2);
+
+// *************Initialization******************
+
 // Connect to SQLite database file
 const db = new sqlite3.Database("./scores.db", (err) => {
   if (err) {
@@ -42,6 +46,8 @@ db.run(`
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
+
+// *************Players******************
 
 // Register a player if new, or return existing player if known
 app.post("/api/players", (req, res) => {
@@ -124,11 +130,20 @@ app.get("/api/players/:playerId", (req, res) => {
   });
 });
 
+// *************Scores******************
+
 app.get("/leaderboard", (req, res) => {
   const sql = `
-    SELECT game_name, player_id, score, created_at
-    FROM scores
-    ORDER BY score DESC, created_at ASC
+    SELECT 
+      s.game_name, 
+      s.player_id, 
+      p.player_name, 
+      s.score, 
+      s.created_at
+    FROM scores s
+    JOIN players p ON s.player_id = p.player_id
+    ORDER BY s.score DESC, s.created_at ASC
+    LIMIT 10
   `;
 
   db.all(sql, [], (err, rows) => {
@@ -140,6 +155,33 @@ app.get("/leaderboard", (req, res) => {
     res.json(rows);
   });
 });
+
+app.post("/api/scores", (req, res) => {
+  const { player_id, game_name, score } = req.body;
+  
+  if (!player_id || !game_name || typeof score !== "number") {
+    return res.status(400).json({ error: "Invalid score data" });
+  }
+  
+  const sql = `
+  INSERT INTO scores (player_id, game_name, score)
+  VALUES (?, ?, ?)
+  `;
+  
+  db.run(sql, [player_id, game_name, score], function (err) {
+    if (err) {
+      console.error("Error saving score:", err.message);
+      return res.status(500).json({ error: "Failed to save score" });
+    }
+    
+    res.json({
+      message: "Score saved successfully",
+      id: this.lastID
+    });
+  });
+});
+
+// *******************Debug******************
 
 //players db debug
 app.get("/debug/players", (req, res) => {
@@ -154,31 +196,6 @@ app.get("/debug/scores", (req, res) => {
   db.all("SELECT * FROM scores", [], (err, rows) => {
     if (err) return res.status(500).json(err);
     res.json(rows);
-  });
-});
-
-app.post("/api/scores", (req, res) => {
-  const { player_id, game_name, score } = req.body;
-
-  if (!player_id || !game_name || typeof score !== "number") {
-    return res.status(400).json({ error: "Invalid score data" });
-  }
-
-  const sql = `
-    INSERT INTO scores (player_id, game_name, score)
-    VALUES (?, ?, ?)
-  `;
-
-  db.run(sql, [player_id, game_name, score], function (err) {
-    if (err) {
-      console.error("Error saving score:", err.message);
-      return res.status(500).json({ error: "Failed to save score" });
-    }
-
-    res.json({
-      message: "Score saved successfully",
-      id: this.lastID
-    });
   });
 });
 

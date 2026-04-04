@@ -5,6 +5,9 @@
 
 /* global styles */
 
+
+  /***** text syles *****/
+
 body {
   background-color: black;
   color: white;
@@ -36,6 +39,8 @@ body {
     margin: 20px;
   }
 
+  /***** input *****/
+
 .input {
   padding: 8px 12px;
   font-size: 36px;
@@ -59,6 +64,8 @@ body {
     justify-content: center;
     gap: 10px;
   }
+
+  /***** buttons *****/
 
 .button {
   display: flex;
@@ -99,3 +106,28 @@ body {
   cursor: pointer;
 }
 
+/***** leaderboard *****/
+
+.leaderboard-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    max-width: 600px;
+}
+
+#leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#leaderboard-table th,
+#leaderboard-table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+#leaderboard-table th {
+    font-weight: bold;
+}

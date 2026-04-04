@@ -1,7 +1,5 @@
 
 //declarations
-const ip = "http://162.243.174.19";
-const port = "3000";
 const gameName = "snake";
 
 const startSection = document.getElementById("start-section");
