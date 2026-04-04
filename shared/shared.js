@@ -29,7 +29,7 @@ async function loadLeaderboard() {
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td>${index + 1}</td>
-                <td>${entry.player_id}</td>
+                <td>${entry.player_name}</td>
                 <td>${entry.game_name}</td>
                 <td>${entry.score}</td>
             `;
