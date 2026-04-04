@@ -1,4 +1,6 @@
-
+//declarations
+const ip = "http://162.243.174.19";
+const port = "3000";
 // generate a unique player ID using the Web Crypto API
 
 function generatePlayerId() {
@@ -68,7 +70,7 @@ async function initializePlayer() {
 async function registerPlayer(playerId, playerName) {
   try {
     //const response = await fetch("/api/players", {
-    const response = await fetch("http://162.243.174.19/api/players", {
+    const response = await fetch(`${ip}/api/players`, {
     method: "POST",
       headers: {
         "Content-Type": "application/json"

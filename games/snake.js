@@ -1,5 +1,8 @@
 
 //declarations
+const ip = "http://162.243.174.19";
+const port = "3000";
+const gameName = "snake";
 
 const startSection = document.getElementById("start-section");
 const gameSection = document.getElementById("game-section");
@@ -35,17 +38,55 @@ function initializeGame() {
 
 function startGame() {
     //gameState.intervalId = setInterval(gameLoop, 200);
-    getPointsButton.onclick = async () => {
-        gameState.score += 10; // Simulate scoring points
+    getPointsButton.onclick = () => {
+        gameState.score += 10;
         console.log("Current Score:", gameState.score);
-    }
+    };
+
     submitPointsButton.onclick = async () => {
-        const playerName = localStorage.getItem("playerName");
-        // Simulate submitting points (replace with actual API call)
-        console.log(`Submitting points for player: ${playerName}, Score: ${gameState.score}`);
-    }
+        await submitScore();
+    };
 
 }
+
+async function submitScore() {
+    const playerId = localStorage.getItem("playerId");
+    const playerName = localStorage.getItem("playerName");
+
+    if (!playerId || !playerName) {
+        console.log("Missing player data in localStorage.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${ip}/api/scores`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                player_id: playerId,
+                game_name: gameName,
+                score: gameState.score
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Submit failed:", data);
+            console.log("Failed to submit score.");
+            return;
+        }
+
+        console.log("Score submitted successfully:", data);
+        console.log("Score submitted successfully.");
+    } catch (error) {
+        console.error("Error submitting score:", error);
+        console.log("Error submitting score.");
+    }
+}
+    
 
 // updateSnake();
 // drawGame();
