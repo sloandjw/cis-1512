@@ -45,13 +45,13 @@ http://162.243.174.19:3000
 
 **maintenance**
 
-//install PM2
+//install Process Manager - manages the Node.js process lifecycle, ensuring uptime and restarts.
 npm install -g pm2
 pm2 start server.js --name arcadehub
 pm2 save
 pm2 startup
 
-//install Nginx
+//install Nginx - acts as a reverse proxy, handling SSL/TLS, load balancing, and routing traffic to your Node.js app
 apt install -y nginx
 nano /etc/nginx/sites-available/arcadehub
 
@@ -80,3 +80,7 @@ ufw allow OpenSSH
 ufw allow 'Nginx Full'
 ufw enable
 
+**debug**
+
+162.243.174.19/debug/players
+162.243.174.19/debug/scores
