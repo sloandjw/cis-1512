@@ -9,7 +9,11 @@ const apiBase = isLocal
 // generate a unique player ID using the Web Crypto API
 
 function generatePlayerId() {
-  return crypto.randomUUID();
+  if (window.crypto && typeof window.crypto.randomUUID === "function") {
+    return window.crypto.randomUUID();
+  }
+
+  return "player-" + Date.now() + "-" + Math.floor(Math.random() * 1000000);
 }
 
 // initialize player data on page load
