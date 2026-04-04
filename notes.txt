@@ -89,3 +89,10 @@ ufw enable
 git fetch origin
 git checkout returning-user
 git pull origin returning-user
+
+**restart server**
+pm2 restart all
+
+**server status**
+pm2 list
+pm2 status
