@@ -40,12 +40,25 @@ async function initializePlayer() {
     if (saveButton && input) {
       saveButton.onclick = async () => {
         const enteredName = input.value.trim();
-        if (!enteredName) {return;}
-        localStorage.setItem("playerName", enteredName);
+        if (!enteredName) return;
+
         const data = await registerPlayer(playerId, enteredName);
-        console.log(data);
+
+        if (!data || data.error) {
+          console.error("Server failed to save player");
+          return;
+        }
+
+        // ONLY save locally after server success
+        localStorage.setItem("playerName", enteredName);
+
         if (newPlayerSection) {
           newPlayerSection.style.display = "none";
+        }
+
+        if (returningPlayerSection && returningPlayerMessage) {
+          returningPlayerMessage.textContent = `Player: ${enteredName}`;
+          returningPlayerSection.style.display = "block";
         }
       };
     }
@@ -61,8 +74,9 @@ async function initializePlayer() {
 
 async function registerPlayer(playerId, playerName) {
   try {
-    const response = await fetch("/api/players", {
-      method: "POST",
+    //const response = await fetch("/api/players", {
+    const response = await fetch("http://162.243.174.19/api/players", {
+    method: "POST",
       headers: {
         "Content-Type": "application/json"
       },

@@ -21,34 +21,62 @@ git clean -f -d
 
 ***node server***
 
-creation
+-access-
 
 ssh -i ~/.ssh/nodeserver root@162.243.174.19
+safe%keep
 
+-creation-
+
+ssh -i ~/.ssh/nodeserver root@162.243.174.19
 apt update && apt upgrade -y
-
 apt install -y nodejs npm
-
 node -v
-
-
+    v18.19.1
 npm -v
-
+    9.2.0
 apt install -y git
-
 git clone https://github.com/sloandjw/cis-1512
-
-cd arcadehub/arcadehub-server
-
+cd cis-1512/arcadehub-server
 npm install
-
-npm install
-
+node server.js
 http://162.243.174.19:3000
-
+    should see Server is running
 
 **maintenance**
 
-install PM2
-
+//install PM2
 npm install -g pm2
+pm2 start server.js --name arcadehub
+pm2 save
+pm2 startup
+
+//install Nginx
+apt install -y nginx
+nano /etc/nginx/sites-available/arcadehub
+
+//configure Nginx
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+//enable it
+ln -s /etc/nginx/sites-available/arcadehub /etc/nginx/sites-enabled/
+nginx -t
+systemctl restart nginx
+
+//firewall
+ufw allow OpenSSH
+ufw allow 'Nginx Full'
+ufw enable
+
