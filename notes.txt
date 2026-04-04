@@ -96,3 +96,7 @@ pm2 restart all
 **server status**
 pm2 list
 pm2 status
+
+**reset db**
+rm scores.db
+pm2 restart all

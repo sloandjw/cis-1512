@@ -2,14 +2,12 @@
 // add any global variables that are shared between multiple pages here
 
 //server connection info
-//const ip = "http://162.243.174.19";
 const isLocal =
   location.hostname === "127.0.0.1" ||
   location.hostname === "localhost";
-
 const apiBase = isLocal
   ? "http://162.243.174.19"
-  : "https://sloandjw.github.io/cis-1512";
+  : "";
 
 // shared javascript functions
 // add functions that are shared between multiple pages here
@@ -19,6 +17,7 @@ async function loadLeaderboard() {
     if (!leaderboardBody) return;
     leaderboardBody.innerHTML = `<tr><td colspan="4">Loading leaderboard...</td></tr>`;
     try {
+        //const response = await fetch(`/leaderboard`);
         const response = await fetch(`${apiBase}/leaderboard`);
         const scores = await response.json();
         if (!response.ok) {
