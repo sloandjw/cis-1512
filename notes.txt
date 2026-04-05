@@ -99,6 +99,12 @@ ufw enable
 162.243.174.19/debug/scores
 162.243.174.19/leaderboard
 
+127.0.0.1:5500/debug/players
+
+**remove specific player from db**
+sqlite3 scores.db
+SELECT * FROM players WHERE player_name = 'David';
+DELETE FROM players WHERE player_name = 'David';
 
 **update server repo**
 git fetch origin
