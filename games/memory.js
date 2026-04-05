@@ -1,1 +1,1 @@
-console.log(gameName);
+//memory.js
