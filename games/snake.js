@@ -11,6 +11,7 @@ const submitPointsButton = document.getElementById("submit-points");
 const resetGameButton = document.getElementById("reset-game");
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
+const speed = 100;
 
 const gameState = {
   tileSize: 20,
@@ -38,13 +39,14 @@ function initializeGame() {
         scoreDisplay.textContent = `Score: 0`;
         startSection.style.display = "none";
         gameSection.style.display = "flex";
+        spawnFood();
         startGame();
     }
 }
 
 function startGame() {
     draw();
-    gameState.interval = setInterval(update, 1000);
+    gameState.interval = setInterval(update, speed);
     getPointsButton.onclick = () => {
         gameState.score += 10;
         console.log("Current Score:", gameState.score);
@@ -67,9 +69,17 @@ function draw() {
             gameState.tileSize
         );
     }
+    ctx.fillStyle = "red";
+    ctx.fillRect(
+        gameState.food.x * gameState.tileSize,
+        gameState.food.y * gameState.tileSize,
+        gameState.tileSize,
+        gameState.tileSize
+    );
 }
 
 function update() {
+    checkCollisions();
     gameState.direction = gameState.nextDirection;
     const head = gameState.snake[0];
     const newHead = {
@@ -78,6 +88,28 @@ function update() {
     };
     gameState.snake[0] = newHead;
     draw();
+}
+
+function spawnFood() {
+    gameState.food = {
+        x: Math.floor(Math.random() * gameState.gridSize),
+        y: Math.floor(Math.random() * gameState.gridSize)
+    };
+    console.log("Food spawned at:", gameState.food);
+}
+
+function checkCollisions() {
+    if (gameState.snake[0].x < 0 || gameState.snake[0].x >= gameState.gridSize || gameState.snake[0].y < 0 || gameState.snake[0].y >= gameState.gridSize) {
+        endGame();
+        return;
+    }
+    console.log("gameState.snake[0].x", gameState.snake[0].x, "gameState.snake[0].y", gameState.snake[0].y);
+    if (gameState.snake[0].x === gameState.food.x && gameState.snake[0].y === gameState.food.y) {
+        gameState.score += 10;
+        console.log("Current Score:", gameState.score);
+        scoreDisplay.textContent = `Score: ${gameState.score}`;
+        spawnFood();
+    }
 }
 
 async function endGame() {
@@ -92,7 +124,6 @@ async function endGame() {
         resetGameState();
         startGame();
     };
-
 }
 
 function resetGameState() {
@@ -146,21 +177,25 @@ async function submitScore() {
 document.addEventListener("keydown", (e) => {
     switch (e.key) {   
         case "ArrowUp":
+        case "w":
             if (gameState.direction.y === 0) {
                 gameState.nextDirection = { x: 0, y: -1 };
             }
             break;
         case "ArrowDown":
+        case "s":
             if (gameState.direction.y === 0) {
                 gameState.nextDirection = { x: 0, y: 1 };
             }
             break;
         case "ArrowLeft":
+        case "a":
             if (gameState.direction.x === 0) {
                 gameState.nextDirection = { x: -1, y: 0 };
             }
             break;
         case "ArrowRight":
+        case "d":
             if (gameState.direction.x === 0) {  
                 gameState.nextDirection = { x: 1, y: 0 };
             }
