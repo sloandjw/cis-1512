@@ -37,6 +37,7 @@ function initializeGame() {
     gameSection.style.display = "none";
     startGameButton.onclick = () => {
         scoreDisplay.textContent = `Score: 0`;
+        resetGameButton.style.display = "flex";
         startSection.style.display = "none";
         gameSection.style.display = "flex";
         spawnFood();
@@ -47,19 +48,32 @@ function initializeGame() {
 function startGame() {
     draw();
     gameState.interval = setInterval(update, speed);
-    getPointsButton.onclick = () => {
-        gameState.score += 10;
-        console.log("Current Score:", gameState.score);
-        scoreDisplay.textContent = `Score: ${gameState.score}`;
+    resetGameButton.onclick = async () => {
+        scoreDisplay.textContent = `Score: 0`;
+        resetGameState();
+        spawnFood();
+        startGame();
     };
+    // getPointsButton.onclick = () => {
+    //     gameState.score += 10;
+    //     console.log("Current Score:", gameState.score);
+    //     scoreDisplay.textContent = `Score: ${gameState.score}`;
+    // };
     
-    submitPointsButton.onclick = async () => {
-        await endGame();
-    };
+    // submitPointsButton.onclick = async () => {
+    //     await endGame();
+    // };
 }
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "red";
+    ctx.fillRect(
+        gameState.food.x * gameState.tileSize,
+        gameState.food.y * gameState.tileSize,
+        gameState.tileSize,
+        gameState.tileSize
+    );
     ctx.fillStyle = "lime";
     for (let segment of gameState.snake) {
         ctx.fillRect(
@@ -69,13 +83,6 @@ function draw() {
             gameState.tileSize
         );
     }
-    ctx.fillStyle = "red";
-    ctx.fillRect(
-        gameState.food.x * gameState.tileSize,
-        gameState.food.y * gameState.tileSize,
-        gameState.tileSize,
-        gameState.tileSize
-    );
 }
 
 function update() {
@@ -99,31 +106,42 @@ function spawnFood() {
 }
 
 function checkCollisions() {
+    console.log("gameState.snake[0].x", gameState.snake[0].x, "gameState.snake[0].y", gameState.snake[0].y);
     if (gameState.snake[0].x < 0 || gameState.snake[0].x >= gameState.gridSize || gameState.snake[0].y < 0 || gameState.snake[0].y >= gameState.gridSize) {
-        endGame();
+        //endGame();
+        wrapAround();
         return;
     }
-    console.log("gameState.snake[0].x", gameState.snake[0].x, "gameState.snake[0].y", gameState.snake[0].y);
     if (gameState.snake[0].x === gameState.food.x && gameState.snake[0].y === gameState.food.y) {
-        gameState.score += 10;
-        console.log("Current Score:", gameState.score);
-        scoreDisplay.textContent = `Score: ${gameState.score}`;
-        spawnFood();
+        eatFood();
     }
+}
+
+function wrapAround() {
+    if (gameState.snake[0].x < 0) {
+        gameState.snake[0].x = gameState.gridSize;
+    } else if (gameState.snake[0].x >= gameState.gridSize) {
+        gameState.snake[0].x = -1;
+    }
+    if (gameState.snake[0].y < 0) {
+        gameState.snake[0].y = gameState.gridSize;
+    } else if (gameState.snake[0].y >= gameState.gridSize) {
+        gameState.snake[0].y = -1;
+    }
+}
+
+function eatFood() {
+    gameState.score += 10;
+    console.log("Current Score:", gameState.score);
+    scoreDisplay.textContent = `Score: ${gameState.score}`;
+    spawnFood();
 }
 
 async function endGame() {
     gameState.gameOver = true;
     clearInterval(gameState.interval);
-    scoreDisplay.textContent = `Game Over! Your Score: ${gameState.score}`;
+    scoreDisplay.textContent = `Game Over! Score: ${gameState.score}`;
     await submitScore();
-    resetGameButton.style.display = "block";
-    resetGameButton.onclick = async () => {
-        scoreDisplay.textContent = `Score: 0`;
-        resetGameButton.style.display = "none";
-        resetGameState();
-        startGame();
-    };
 }
 
 function resetGameState() {
