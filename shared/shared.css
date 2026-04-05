@@ -42,7 +42,7 @@ body {
 .score {
     font-size: 2rem;
     margin: 20px;
-    color: #00ff00;
+    color: #ffffff;
   }
 
   /***** input *****/
@@ -88,6 +88,11 @@ body {
   cursor: pointer;
 }
 
+.button:focus {
+  outline: 2px solid red;
+  background-color: transparent;
+}
+
 .test-button {
     padding: 8px 14px;
     font-size: 24px;
@@ -112,12 +117,17 @@ body {
   cursor: pointer;
 }
 
+.button-row {
+  display: flex;
+  gap: 10px;
+}
+
 /***** leaderboard *****/
 
 .leaderboard-section {
     margin-top: 2rem;
     padding: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid #ff0000;
     border-radius: 8px;
     max-width: 600px;
 }
@@ -136,4 +146,21 @@ body {
 
 #leaderboard-table th {
     font-weight: bold;
+}
+
+/***** game canvas *****/
+
+#game-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#game-canvas {
+  border: 2px solid rgb(255, 0, 0);
+  background-color: black;
+  display: block;
+  margin: 0 auto;
 }
