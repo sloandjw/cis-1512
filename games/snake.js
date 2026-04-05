@@ -11,12 +11,14 @@ const submitPointsButton = document.getElementById("submit-points");
 const resetGameButton = document.getElementById("reset-game");
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
-const speed = 100;
+const speed = 80;
 
 const gameState = {
   tileSize: 20,
   gridSize: 20,
   snake: [
+    { x: 10, y: 10 },
+    { x: 10, y: 10 },
     { x: 10, y: 10 }
   ],
   direction: { x: 1, y: 0 },
@@ -24,7 +26,8 @@ const gameState = {
   food: { x: 5, y: 5 },
   score: 0,
   gameOver: false,
-  interval: null
+  interval: null,
+  ticks: 0
 };
 
 //entry point
@@ -86,14 +89,23 @@ function draw() {
 }
 
 function update() {
-    checkCollisions();
+    gameState.ticks++;
+    if (gameState.ticks > 3 && checkCollision()) {
+        return;
+    }
     gameState.direction = gameState.nextDirection;
     const head = gameState.snake[0];
     const newHead = {
         x: head.x + gameState.direction.x,
         y: head.y + gameState.direction.y
     };
-    gameState.snake[0] = newHead;
+    gameState.snake.unshift(newHead);
+    if (newHead.x === gameState.food.x && newHead.y === gameState.food.y) {
+        eatFood();
+    } else {
+        gameState.snake.pop();
+    }
+    wrapAround();
     draw();
 }
 
@@ -105,28 +117,17 @@ function spawnFood() {
     console.log("Food spawned at:", gameState.food);
 }
 
-function checkCollisions() {
-    console.log("gameState.snake[0].x", gameState.snake[0].x, "gameState.snake[0].y", gameState.snake[0].y);
-    if (gameState.snake[0].x < 0 || gameState.snake[0].x >= gameState.gridSize || gameState.snake[0].y < 0 || gameState.snake[0].y >= gameState.gridSize) {
-        //endGame();
-        wrapAround();
-        return;
-    }
-    if (gameState.snake[0].x === gameState.food.x && gameState.snake[0].y === gameState.food.y) {
-        eatFood();
-    }
-}
-
 function wrapAround() {
-    if (gameState.snake[0].x < 0) {
-        gameState.snake[0].x = gameState.gridSize;
-    } else if (gameState.snake[0].x >= gameState.gridSize) {
-        gameState.snake[0].x = -1;
+    const head = gameState.snake[0];
+    if (head.x < 0) {
+        head.x = gameState.gridSize - 1;
+    } else if (head.x >= gameState.gridSize) {
+        head.x = 0;
     }
-    if (gameState.snake[0].y < 0) {
-        gameState.snake[0].y = gameState.gridSize;
-    } else if (gameState.snake[0].y >= gameState.gridSize) {
-        gameState.snake[0].y = -1;
+    if (head.y < 0) {
+        head.y = gameState.gridSize - 1;
+    } else if (head.y >= gameState.gridSize) {
+        head.y = 0;
     }
 }
 
@@ -137,6 +138,25 @@ function eatFood() {
     spawnFood();
 }
 
+function checkCollision() {
+    const head = gameState.snake[0];   
+    for (let i = 1; i < gameState.snake.length; i++) {
+        if (head.x === gameState.snake[i].x && head.y === gameState.snake[i].y) {
+            endGame();
+            return true;
+        }
+    }
+    return false;
+}
+
+function isOppositeDirection(dir1, dir2) {
+    return (
+        dir1.x + dir2.x === 0 &&
+        dir1.y + dir2.y === 0
+    );
+}
+
+
 async function endGame() {
     gameState.gameOver = true;
     clearInterval(gameState.interval);
@@ -145,7 +165,11 @@ async function endGame() {
 }
 
 function resetGameState() {
-    gameState.snake = [{ x: 10, y: 10 }];
+    gameState.snake = [
+        { x: 10, y: 10 },
+        { x: 10, y: 10 },
+        { x: 10, y: 10 }
+    ];
     gameState.direction = { x: 1, y: 0 };
     gameState.nextDirection = { x: 1, y: 0 };
     gameState.food = { x: 5, y: 5 };
@@ -155,6 +179,7 @@ function resetGameState() {
         clearInterval(gameState.interval);
         gameState.interval = null;
     }
+    gameState.ticks = 0;
 }
 
 async function submitScore() {
@@ -193,30 +218,28 @@ async function submitScore() {
 
 //event listeners
 document.addEventListener("keydown", (e) => {
+    let newDirection;
     switch (e.key) {   
         case "ArrowUp":
         case "w":
-            if (gameState.direction.y === 0) {
-                gameState.nextDirection = { x: 0, y: -1 };
-            }
+            newDirection = { x: 0, y: -1 };
             break;
         case "ArrowDown":
         case "s":
-            if (gameState.direction.y === 0) {
-                gameState.nextDirection = { x: 0, y: 1 };
-            }
+            newDirection = { x: 0, y: 1 };
             break;
         case "ArrowLeft":
         case "a":
-            if (gameState.direction.x === 0) {
-                gameState.nextDirection = { x: -1, y: 0 };
-            }
+            newDirection = { x: -1, y: 0 };
             break;
         case "ArrowRight":
         case "d":
-            if (gameState.direction.x === 0) {  
-                gameState.nextDirection = { x: 1, y: 0 };
-            }
+            newDirection = { x: 1, y: 0 };
             break;
-    }       
+    }
+    if (isOppositeDirection(gameState.direction, gameState.nextDirection)) {
+        endGame();
+        return;
+    }
+    gameState.nextDirection = newDirection;
 });
