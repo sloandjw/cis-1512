@@ -112,6 +112,11 @@ body {
   cursor: pointer;
 }
 
+.button-row {
+  display: flex;
+  gap: 10px;
+}
+
 /***** leaderboard *****/
 
 .leaderboard-section {
@@ -136,4 +141,21 @@ body {
 
 #leaderboard-table th {
     font-weight: bold;
+}
+
+/***** game canvas *****/
+
+#game-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#game-canvas {
+  border: 2px solid rgb(255, 0, 0);
+  background-color: black;
+  display: block;
+  margin: 0 auto;
 }

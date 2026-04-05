@@ -4,7 +4,6 @@ const gameName = "Snake";
 
 const startSection = document.getElementById("start-section");
 const gameSection = document.getElementById("game-section");
-const scoreSection = document.getElementById("score-section");
 const scoreDisplay = document.getElementById("score-display");
 const startGameButton = document.getElementById("start-game");
 const getPointsButton = document.getElementById("get-points");
@@ -31,12 +30,10 @@ function initializeGame() {
     resetGameState();
     startSection.style.display = "block";
     gameSection.style.display = "none";
-    scoreSection.style.display = "none";
     startGameButton.onclick = () => {
-        startSection.style.display = "none";
-        gameSection.style.display = "block";
-        scoreSection.style.display = "block";
         scoreDisplay.textContent = `Score: 0`;
+        startSection.style.display = "none";
+        gameSection.style.display = "flex";
         startGame();
     }
 }
@@ -97,7 +94,6 @@ async function submitScore() {
 
 
     //reset game state for new game
-
     initializeGame();
 }
     
