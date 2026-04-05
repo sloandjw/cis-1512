@@ -1,6 +1,6 @@
 /* shared.css
 * This file contains styles that are shared across multiple pages in the arcade hub.
-* Add any common styles here to maintain a consistent look and feel across the site.
+* Add common styles here to maintain a consistent look and feel across the site.
 */
 
 /* global styles */
@@ -37,6 +37,12 @@ body {
 .subtitle {
     font-size: 2rem;
     margin: 20px;
+  }
+
+.score {
+    font-size: 2rem;
+    margin: 20px;
+    color: #00ff00;
   }
 
   /***** input *****/

@@ -1,11 +1,3 @@
-//server connection info
-const isLocal =
-  location.hostname === "127.0.0.1" ||
-  location.hostname === "localhost";
-const apiBase = isLocal
-  ? "http://162.243.174.19"
-  : "";
-
 // generate a unique player ID using the Web Crypto API
 
 function generatePlayerId() {
