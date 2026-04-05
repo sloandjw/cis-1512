@@ -150,10 +150,7 @@ function checkCollision() {
 }
 
 function isOppositeDirection(dir1, dir2) {
-    return (
-        dir1.x + dir2.x === 0 &&
-        dir1.y + dir2.y === 0
-    );
+    return (dir1.x + dir2.x === 0 && dir1.y + dir2.y === 0);
 }
 
 
@@ -237,7 +234,7 @@ document.addEventListener("keydown", (e) => {
             newDirection = { x: 1, y: 0 };
             break;
     }
-    if (isOppositeDirection(gameState.direction, gameState.nextDirection)) {
+    if (isOppositeDirection(gameState.direction, newDirection)) {
         endGame();
         return;
     }
