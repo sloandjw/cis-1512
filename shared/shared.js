@@ -6,7 +6,7 @@ const isLocal =
   location.hostname === "127.0.0.1" ||
   location.hostname === "localhost";
 const apiBase = isLocal
-  ? "http://162.243.174.19"
+  ? "http://162.243.174.19/cis-1512"
   : "";
 
 // shared javascript functions
