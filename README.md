@@ -35,4 +35,4 @@ Commit your changes to your local repo and push your branch to GitHub<br />
 <br />
 Then open a Pull Request on GitHub.
 
-GitHub Pages Live Site: https://sloandjw.github.io/cis-1512/
+Live Site: http://162.243.174.19/index.html
