@@ -6,7 +6,7 @@ const isLocal =
   location.hostname === "127.0.0.1" ||
   location.hostname === "localhost";
 const apiBase = isLocal
-  ? "http://162.243.174.19/cis-1512"
+  ? "http://162.243.174.19"
   : "";
 
 // shared javascript functions
@@ -18,7 +18,7 @@ async function loadLeaderboard() {
     leaderboardBody.innerHTML = `<tr><td colspan="4">Loading leaderboard...</td></tr>`;
     try {
         //const response = await fetch(`/leaderboard`);
-        const response = await fetch(`${apiBase}/leaderboard`);
+        const response = await fetch(`${apiBase}/cis-1512/leaderboard`);
         const scores = await response.json();
         if (!response.ok) {
             leaderboardBody.innerHTML = `<tr><td colspan="4">Failed to load leaderboard.</td></tr>`;
