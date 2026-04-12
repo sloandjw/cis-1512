@@ -18,7 +18,7 @@ async function loadLeaderboard() {
     leaderboardBody.innerHTML = `<tr><td colspan="4">Loading leaderboard...</td></tr>`;
     try {
         //const response = await fetch(`/leaderboard`);
-        const response = await fetch(`${apiBase}/leaderboard`);
+        const response = await fetch(`${apiBase}/cis-1512/leaderboard`);
         const scores = await response.json();
         if (!response.ok) {
             leaderboardBody.innerHTML = `<tr><td colspan="4">Failed to load leaderboard.</td></tr>`;

@@ -18,12 +18,15 @@ git reset --hard HEAD
 git reset --hard origin/combos
 git clean -f -d
 
-
 ***node server***
 
 -access-
 
+//root
 ssh -i ~/.ssh/nodeserver root@162.243.174.19
+safe%keep
+//server
+ssh -i ~/.ssh/nodeserver server@162.243.174.19
 safe%keep
 
 -creation-
@@ -36,26 +39,42 @@ node -v
 npm -v
     9.2.0
 apt install -y git
+
+-add user-
+
+adduser server
+password safe%keep
+//give user sudo privileges
+usermod -aG sudo server
+//copy SSH access
+rsync --archive --chown=server:server ~/.ssh /home/server
+//give permission to site folders
+sudo chown -R server:server /var/www
+
+-clone repo-
+cd /var/www
 git clone https://github.com/sloandjw/cis-1512
 cd cis-1512/arcadehub-server
-npm install
+
+-run server manual for testing-
 node server.js
 http://162.243.174.19:3000
     should see Server is running
 
-**maintenance**
-
-//install Process Manager - manages the Node.js process lifecycle, ensuring uptime and restarts.
+-run server with process manager for deployment-
 npm install -g pm2
+cd /var/www/cis-1512/arcadehub-server
 pm2 start server.js --name arcadehub
 pm2 save
 pm2 startup
 
 //install Nginx - acts as a reverse proxy, handling SSL/TLS, load balancing, and routing traffic to your Node.js app
 apt install -y nginx
-nano /etc/nginx/sites-available/arcadehub
+nano /etc/nginx/sites-available/main
 
-//configure Nginx                                              
+//configure Nginx    
+
+OLD
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -74,6 +93,33 @@ server {
 
     location /api/ {
         proxy_pass http://127.0.0.1:3000;
+    }
+}
+
+NEW
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name _;
+
+    root /var/www/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location /arcadehub/ {
+        alias /var/www/cis-1512/;
+        index index.html;
+        try_files $uri $uri/ $uri/index.html =404;
+    }
+
+    location /cis-1440/ {
+        alias /var/www/cis-1440/;
+        index index.html;
+        try_files $uri $uri/ $uri/index.html =404;
     }
 }
 
