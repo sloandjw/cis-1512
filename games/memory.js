@@ -36,6 +36,7 @@ let flippedCards = [];
 let matchedPairs = 0;
 let moves = 0;
 let lockBoard = false;
+let points = 0;
 
 function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
@@ -64,9 +65,11 @@ function renderMemoryGrid() {
     flippedCards = [];
     matchedPairs = 0;
     moves = 0;
+    points = 0;
     lockBoard = false;
     updateMoveCount();
     announceStatus("Start matching cards!");
+    announcePoints("You have 0 points.")
 }
 
 function flipMemoryCard(card) {
@@ -112,6 +115,8 @@ function resetTurn() {
 function checkWin() {
     if (matchedPairs === memoryCards.length / 2) {
         announceStatus(`You won in ${moves} moves!`);
+        checkPoints();
+        announcePoints(`You got ${points} points!`);
     }
 }
 
@@ -121,4 +126,22 @@ function updateMoveCount() {
 
 function announceStatus(message) {
     document.getElementById("status").textContent = message;
+}
+
+function announcePoints(message1) {
+    document.getElementById("points").textContent = message1;
+}
+
+function checkPoints() {
+    if (moves <= 8) {
+        points = 10;
+    } else if(moves >= 9 && moves <= 12) {
+        points = 5;
+    } else if(moves >= 13 && moves <= 15) {
+        points = 3;
+    } else if(moves >= 16) {
+        points = 1;
+    } else {
+        print("can't calculate points");
+    }
 }
