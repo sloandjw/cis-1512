@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Memory Match</title>
-    <link rel="stylesheet" href="memory.css" />
+  <meta charset="UTF-8">
+  <title>Arcade Hub</title>
+  <script src="../../shared/shared.js" defer></script>
+  <script src="memory.js" defer></script>
+  <link rel="stylesheet" href="../../shared/shared.css">
 </head>
 <body>
-<header>
+  <div class="centered" id="start-screen">
     <h1>Memory Match</h1>
-    <nav>
-        <a href="../hub.html" class="button">Back to Hub</a>
-        <button id="toggle-memory">Start Game</button>
-    </nav>
-</header>
-<main>
-    <section id="memory-mode" class="game-mode" hidden>
-        <h2>Memory Match</h2>
-        <div id="memory-grid" class="grid" role="grid" aria-label="Memory card grid"></div>
-        <div class="game-info">
-            <p id="moves">Moves: 0</p>
-            <p id="status" aria-live="polite">Start matching cards!</p>
-            <ol>Instructions: 
-                <li>Flip over cards to find matching pairs</li>
-                <li>Only flip two cards at a time </li>
-                <li>When all matching pairs are found, the game is over</li>
-            </ol>
-        </div>
-        <button id="reset-btn">Reset</button>
-    </section>
-</main>
-    <script src="memory.js"></script>
+    <button id="start-btn" class="button">Start Game</button>
+  </div>
+  <main class="memory-flexbox" id="memory-mode" hidden>
+    <div class="game-info">
+      <p id="moves">Moves: 0</p>
+      <p id="status" aria-live="polite">Start matching cards!</p>
+      <ol>Instructions: 
+        <li>Flip over cards to find matching pairs</li>
+        <li>Only flip two cards at a time </li>
+        <li>When all matching pairs are found, the game is over</li>
+      </ol>
+    </div>
+    <div class="centered">
+      <h1>Memory Match</h1>
+      <div id="memory-grid" class="memory-grid" role="grid" aria-label="Memory card grid"></div>
+      <button id="reset-btn" class="button">Reset</button>
+    </div>
+    <div>
+      <p>Points Ranges</p>
+      <ul>
+        <li>8 moves = 10 Points</li>
+        <li>10 - 12 moves = 5 Points</li>
+        <li>13 - 15 moves = 3 Points</li>
+        <li>16+ moves = 1 Point</li>
+      </ul>
+    </div>
+  </main>
+  <a href="../hub.html" class="button" style="width: 250px;">Back to Hub</a>
 </body>
 </html>

@@ -1,10 +1,18 @@
-document.getElementById("toggle-memory").addEventListener("click", () => {
-    document.getElementById("memory-mode").hidden = false;
+const startBtn = document.getElementById("start-btn");
+const startScreen = document.getElementById("start-screen");
+const resetBtn = document.getElementById("reset-btn");
+const memoryMode = document.getElementById("memory-mode");
+const grid = document.getElementById("memory-grid");
+
+startBtn.addEventListener("click", () => {
+    memoryMode.hidden = false;
+    startScreen.style.display = "none";
     renderMemoryGrid();
 });
 
-document.getElementById("reset-btn").addEventListener("click", () => {
-    document.getElementById("memory-mode").hidden = false;
+resetBtn.addEventListener("click", () => {
+    memoryMode.hidden = false;
+    startScreen.style.display = "none";
     renderMemoryGrid();
 });
 
@@ -34,7 +42,6 @@ function shuffle(array) {
 }
 
 function renderMemoryGrid() {
-    const grid = document.getElementById("memory-grid");
     grid.innerHTML = "";
     const shuffled = shuffle([...memoryCards]);
 
@@ -43,7 +50,7 @@ function renderMemoryGrid() {
         cardEl.className = "memory-card";
         cardEl.setAttribute("data-id", card.id);
         cardEl.setAttribute("data-pair", card.pairId);
-        cardEl.innerHTML = `<span class="card-front"></span><span class="card-back">${card.label}</span>`;
+        cardEl.innerHTML = `<span class="memory-card-front"></span><span class="memory-card-back">${card.label}</span>`;
         cardEl.addEventListener("click", () => flipMemoryCard(cardEl));
         cardEl.addEventListener("keydown", (e) => {
             if (e.key === "Enter" || e.key === " ") {

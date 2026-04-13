@@ -38,7 +38,7 @@ main {
     max-width: 600px;
 }
 
-.grid {
+.memory-grid {
     display: grid;
     grid-template-columns: repeat(4, 80px);
     gap: 10px;
@@ -57,7 +57,7 @@ main {
   box-sizing: border-box;
 }
 
-.card-front, .card-back {
+.memory-card-front, .memory-card-back {
   position: absolute;
   top: 0;
   left: 0;
@@ -72,23 +72,23 @@ main {
   transition: transform 0.3s ease;
 }
 
-.card-front {
+.memory-card-front {
   background: #ddd;
   z-index: 1;
 }
 
-.card-back {
+.memory-card-back {
   background: #4caf50;
   color: white;
   z-index: 2;
   display: none;
 }
 
-.memory-card.flipped .card-front {
+.memory-card.flipped .memory-card-front {
   display: none;
 }
 
-.memory-card.flipped .card-back {
+.memory-card.flipped .memory-card-back {
   display: flex;
 }
 
