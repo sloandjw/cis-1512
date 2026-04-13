@@ -74,29 +74,6 @@ nano /etc/nginx/sites-available/main
 
 //configure Nginx    
 
-OLD
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    server_name _;
-
-    root /root/cis-1512;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-
-    location /leaderboard {
-        proxy_pass http://127.0.0.1:3000/leaderboard;
-    }
-
-    location /api/ {
-        proxy_pass http://127.0.0.1:3000;
-    }
-}
-
-NEW
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
