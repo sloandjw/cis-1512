@@ -100,6 +100,10 @@ server {
     location /cis-1512/leaderboard {
         proxy_pass http://127.0.0.1:3000/leaderboard;
     }
+    
+    location /cis-1512/debug {
+        proxy_pass http://127.0.0.1:3000/debug;
+    }
 
     location /cis-1512/ {
         alias /var/www/cis-1512/;
@@ -125,10 +129,10 @@ ufw enable
 
 **debug**
 
-162.243.174.19/index.html
-162.243.174.19/debug/players
-162.243.174.19/debug/scores
-162.243.174.19/leaderboard
+162.243.174.19/cis-1512/index.html
+162.243.174.19/cis-1512/debug/players
+162.243.174.19/cis-1512/debug/scores
+162.243.174.19/cis-1512/leaderboard
 
 **remove specific player from db**
 //apt install sqlite3
