@@ -1,19 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>ArcadeHub</title>
-  <script src="../shared/shared.js" defer></script>
+  <meta charset="UTF-8">
+  <title>Arcade Hub</title>
   <script src="memory.js" defer></script>
   <link rel="stylesheet" href="../shared/shared.css">
 </head>
-<body class="centered">
-
-  <h1>Memory</h1>
-
-   <img src="../images/coming-soon.png" alt="Coming Soon Image">
-
-  <a href="../hub.html" class="button">Back to Hub</a>
-
+<body>
+  <div class="centered" id="start-screen">
+    <h1>Memory Match</h1>
+    <button id="start-btn" class="button">Start Game</button>
+  </div>
+  <main class="memory-flexbox" id="memory-mode" hidden>
+    <div class="game-info">
+      <p id="moves">Moves: 0</p>
+      <p id="status" aria-live="polite">Start matching cards!</p>
+      <p id="points" aria-live="polite">You have 0 points</p>
+      <ol>Instructions: 
+        <li>Flip over cards to find matching pairs</li>
+        <li>Only flip two cards at a time </li>
+        <li>When all matching pairs are found, the game is over</li>
+      </ol>
+    </div>
+    <div class="centered">
+      <h1>Memory Match</h1>
+      <div id="memory-grid" class="memory-grid" role="grid" aria-label="Memory card grid"></div>
+      <button id="reset-btn" class="button">Reset</button>
+    </div>
+    <div>
+      <p>Points Ranges</p>
+      <ul>
+        <li>8 moves = 10 Points</li>
+        <li>10 - 12 moves = 5 Points</li>
+        <li>13 - 15 moves = 3 Points</li>
+        <li>16+ moves = 1 Point</li>
+      </ul>
+    </div>
+  </main>
+  <a href="../hub.html" class="button" style="width: 250px;">Back to Hub</a>
 </body>
 </html>
