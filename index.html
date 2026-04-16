@@ -1,18 +1,40 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title>Hello</title>
+  <title>ArcadeHub</title>
+  <script src="shared/shared.js" defer></script>
+  <script src="player.js" defer></script>
+  <link rel="stylesheet" href="shared/shared.css">
 </head>
-<body>
+<body class="centered">
 
+  <h1 class ="main-title"> Welcome to ArcadeHub! </h1>
+
+  <p class="subtitle">The Ultimate Student Arcade Experience<br><br><br></p>
+
+  <div id="new-player-section" style="display:none;">
+    <p class="subtitle centered">Please enter your name:<br></p>
+    <div class="input-container">
+      <input type="text" id="player-name-input" class="input" maxlength="20" autocomplete="off">
+    </div>
+    <button id="save-player-name" class="button">Continue</button>
+  </div>
+
+  <div id="returning-player-section" style="display:none;">
+    <p class="subtitle centered" id="returning-player-message"></p>
+    <a href="hub.html" class="button">Enter Arcade</a>
+    <button id="reset-player" class="reset-button">Reset Player</button>
+  </div>
+
+  
+  
+  <!--
   <h1>Hello, World!</h1>
-
-
   <h1>BENJAMIN LAUGHTON WAS HERE...</h1>
-
   <h1>Draven Davis was here after...</h1>
-
   <h1> Carlos Martinez has made it to the party! </h1>
+  -->
 </body>
 </html>

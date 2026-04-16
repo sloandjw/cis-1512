@@ -8,6 +8,7 @@ Create a folder called <i>arcadehub</i> on your local computer<br />
 Clone the GitHub repository in a terminal<br />
 `cd arcadehub`<br />
 `git clone https://github.com/sloandjw/cis-1512.git`<br />
+`cd cis-1512`<br />
 <br />
 Pull Main<br />
 `git checkout main`<br />
@@ -34,4 +35,4 @@ Commit your changes to your local repo and push your branch to GitHub<br />
 <br />
 Then open a Pull Request on GitHub.
 
-GitHub Pages Live Site: https://sloandjw.github.io/cis-1512/
+Live Site: http://162.243.174.19/cis-1512/
