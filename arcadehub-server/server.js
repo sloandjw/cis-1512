@@ -154,6 +154,77 @@ app.get("/leaderboard", (req, res) => {
   });
 });
 
+// TicTacToe leaderboard: aggregated W/D/L per player, sorted by most wins
+app.get("/leaderboard/tictactoe", (req, res) => {
+  const sql = `
+    SELECT
+      p.player_name,
+      SUM(CASE WHEN s.score = 1 THEN 1 ELSE 0 END) AS wins,
+      SUM(CASE WHEN s.score = 0 THEN 1 ELSE 0 END) AS draws,
+      SUM(CASE WHEN s.score = -1 THEN 1 ELSE 0 END) AS losses
+    FROM scores s
+    JOIN players p ON s.player_id = p.player_id
+    WHERE s.game_name = 'TicTacToe'
+    GROUP BY s.player_id
+    ORDER BY wins DESC, losses ASC
+    LIMIT 10
+  `;
+
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      console.error("Error fetching TicTacToe leaderboard:", err.message);
+      return res.status(500).json({ error: "Failed to fetch TicTacToe leaderboard" });
+    }
+    res.json(rows);
+  });
+});
+
+// Memory leaderboard: best (fewest) turns per player
+app.get("/leaderboard/memory", (req, res) => {
+  const sql = `
+    SELECT
+      p.player_name,
+      MIN(s.score) AS best_turns
+    FROM scores s
+    JOIN players p ON s.player_id = p.player_id
+    WHERE s.game_name = 'Memory'
+    GROUP BY s.player_id
+    ORDER BY best_turns ASC
+    LIMIT 10
+  `;
+
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      console.error("Error fetching Memory leaderboard:", err.message);
+      return res.status(500).json({ error: "Failed to fetch Memory leaderboard" });
+    }
+    res.json(rows);
+  });
+});
+
+// Snake leaderboard: highest score per player
+app.get("/leaderboard/snake", (req, res) => {
+  const sql = `
+    SELECT
+      p.player_name,
+      MAX(s.score) AS high_score
+    FROM scores s
+    JOIN players p ON s.player_id = p.player_id
+    WHERE s.game_name = 'Snake'
+    GROUP BY s.player_id
+    ORDER BY high_score DESC
+    LIMIT 10
+  `;
+
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      console.error("Error fetching Snake leaderboard:", err.message);
+      return res.status(500).json({ error: "Failed to fetch Snake leaderboard" });
+    }
+    res.json(rows);
+  });
+});
+
 app.post("/api/scores", (req, res) => {
   const { player_id, game_name, score } = req.body;
   
