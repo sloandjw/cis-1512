@@ -29,6 +29,8 @@ safe%keep
 ssh -i ~/.ssh/nodeserver server@162.243.174.19
 safe%keep
 
+cd /var/www/cis-1512
+
 -creation-
 
 ssh -i ~/.ssh/nodeserver root@162.243.174.19
@@ -70,9 +72,10 @@ pm2 startup
 
 //install Nginx - acts as a reverse proxy, handling SSL/TLS, load balancing, and routing traffic to your Node.js app
 apt install -y nginx
-nano /etc/nginx/sites-available/main
 
-//configure Nginx    
+
+//configure Nginx
+sudo nano /etc/nginx/sites-available/ls
 
 server {
     listen 80 default_server;
@@ -93,6 +96,12 @@ server {
         try_files $uri $uri/ $uri/index.html =404;
     }
 
+    location /cis-1512/ {
+        alias /var/www/cis-1512/;
+        index index.html;
+        try_files $uri $uri/ $uri/index.html =404;
+    }
+
     location /cis-1512/api/ {
         proxy_pass http://127.0.0.1:3000/api/;
     }
@@ -103,12 +112,6 @@ server {
     
     location /cis-1512/debug {
         proxy_pass http://127.0.0.1:3000/debug;
-    }
-
-    location /cis-1512/ {
-        alias /var/www/cis-1512/;
-        index index.html;
-        try_files $uri $uri/ $uri/index.html =404;
     }
 }
 
