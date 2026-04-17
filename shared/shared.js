@@ -10,7 +10,7 @@ location.hostname === "127.0.0.1" || location.hostname === "localhost"
 // shared javascript functions
 // add functions that are shared between multiple pages here
 
-
+// Submit a score to the server (reusable across games)
 async function submitGameScore(gameName, score) {
     const playerId = localStorage.getItem("playerId");
     const playerName = localStorage.getItem("playerName");

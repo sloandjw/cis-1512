@@ -158,7 +158,8 @@ async function endGame() {
     gameState.gameOver = true;
     clearInterval(gameState.interval);
     scoreDisplay.textContent = `Game Over! Score: ${gameState.score}`;
-    await submitScore();
+    // await submitScore();
+    await submitGameScore(gameName, gameState.score)
 }
 
 function resetGameState() {
