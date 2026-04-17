@@ -171,7 +171,8 @@ async function endGame() {
     scoreDisplay.textContent = `Game Over! Score: ${gameState.score}`;
     resetGameButton.style.display = "none";
     playAgainButton.style.display = "block";
-    await submitScore();
+    // await submitScore();
+    await submitGameScore(gameName, gameState.score)
 }
 
 function resetGameState() {

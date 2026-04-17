@@ -3,9 +3,9 @@
 
 //server connection info
 const apiBase =
-  location.hostname === "127.0.0.1" || location.hostname === "localhost"
-    ? "http://162.243.174.19/cis-1512"
-    : "/cis-1512";
+location.hostname === "127.0.0.1" || location.hostname === "localhost"
+? "http://162.243.174.19/cis-1512"
+: "/cis-1512";
 
 // shared javascript functions
 // add functions that are shared between multiple pages here
