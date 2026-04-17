@@ -1,3 +1,5 @@
+const gameName = "Memory";
+
 const startBtn = document.getElementById("start-btn");
 const startScreen = document.getElementById("start-screen");
 const resetBtn = document.getElementById("reset-btn");
@@ -37,7 +39,6 @@ let matchedPairs = 0;
 let moves = 0;
 let lockBoard = false;
 let points = 0;
-let pointsGotten = 0;
 
 function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
@@ -66,11 +67,11 @@ function renderMemoryGrid() {
     flippedCards = [];
     matchedPairs = 0;
     moves = 0;
-    pointsGotten = 0;
+    points = 0;
     lockBoard = false;
     updateMoveCount();
     announceStatus("Start matching cards!");
-    announcePoints(`You have ${points} points`);
+    announcePoints("You have 0 points");
 }
 
 function flipMemoryCard(card) {
@@ -117,7 +118,7 @@ async function checkWin() {
     if (matchedPairs === memoryCards.length / 2) {
         announceStatus(`You won in ${moves} moves!`);
         checkPoints();
-        announcePoints(`You got ${pointsGotten} points!`);
+        announcePoints(`You got ${points} points!`);
         await submitScore();
     }
 }
@@ -135,18 +136,14 @@ function announcePoints(message1) {
 }
 
 function checkPoints() {
-    if (moves <= 8) {
-        pointsGotten = 10;
-        points += 10;
+    if (moves = 8) {
+        points = 100;
     } else if(moves >= 9 && moves <= 12) {
-        pointsGotten = 5;
-        points += 5;
+        points = 50;
     } else if(moves >= 13 && moves <= 15) {
-        pointsGotten = 3;
-        points += 3;
+        points = 30;
     } else if(moves >= 16) {
-        pointsGotten = 1;
-        points += 1;
+        points = 10;
     } else {
         print("can't calculate points");
     }
