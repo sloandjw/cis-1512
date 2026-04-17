@@ -132,11 +132,11 @@ app.get("/api/players/:playerId", (req, res) => {
 
 app.get("/leaderboard", (req, res) => {
   const sql = `
-    SELECT 
-      s.game_name, 
-      s.player_id, 
-      p.player_name, 
-      s.score, 
+    SELECT
+      s.game_name,
+      s.player_id,
+      p.player_name,
+      s.score,
       s.created_at
     FROM scores s
     JOIN players p ON s.player_id = p.player_id

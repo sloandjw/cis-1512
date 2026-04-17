@@ -69,7 +69,8 @@ function renderMemoryGrid() {
     lockBoard = false;
     updateMoveCount();
     announceStatus("Start matching cards!");
-    announcePoints("You have 0 points.")
+    announcePoints("You have 0 points.");
+    resetBtn.style.display = "none";
 }
 
 function flipMemoryCard(card) {
@@ -117,6 +118,9 @@ function checkWin() {
         announceStatus(`You won in ${moves} moves!`);
         checkPoints();
         announcePoints(`You got ${points} points!`);
+        resetBtn.style.display = "block";
+        // Submit turn count to leaderboard (lower is better)
+        submitGameScore('Memory', moves);
     }
 }
 
