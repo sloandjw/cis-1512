@@ -9,17 +9,26 @@
   <link rel="stylesheet" href="../shared/shared.css">
 </head>
 <body class="centered">
-  <div class="game-container"></div>
-  <p id="scoreboard">Wins: 0 | Losses: 0 | Draws: 0</p>
+
+  <div id="start-screen" class="centered" style="height:100vh;">
     <h1>Tic-Tac-Toe</h1>
-      <h1>You are X. CPU is O.</h1>
+    <h2>You are X. CPU is O.</h2>
+    <button id="start-btn" class="play-btn">Play</button>
+  </div>
+
+  <div id="game-screen" style="display:none;">
+    <div class="centered">
+      <h1>Tic-Tac-Toe</h1>
+      <p id="scoreboard">Wins: 0 | Losses: 0 | Draws: 0</p>
+      <div class="board" id="board"></div>
+      <div id="status"></div>
+      <button id="play-again" class="play-btn" style="font-size:36px; padding:16px 40px; display:none;">Play Again</button>
     </div>
     <div class="board" id="board"></div>
     <div id="status"></div>
   </div>
-  <a href="../hub.html" class="button">Back to Hub</a>
-  <div class="button-row">
-    <button id="reset-game" class="button">Reset Game</button>
-  </div>
+
+  <a href="../hub.html" class="button corner-btn corner-left">Back to Hub</a>
+
 </body>
 </html>

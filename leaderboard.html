@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ArcadeHub - Leaderboard</title>
+  <script src="shared/shared.js" defer></script>
+  <link rel="stylesheet" href="shared/shared.css">
+</head>
+<body class="centered">
+
+  <h1>Leaderboard</h1>
+
+  <div class="leaderboard-row">
+
+    <!-- Tic-Tac-Toe Leaderboard -->
+    <section class="leaderboard-section">
+      <h2>Tic-Tac-Toe</h2>
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>W</th>
+            <th>D</th>
+            <th>L</th>
+          </tr>
+        </thead>
+        <tbody id="ttt-leaderboard-body">
+          <tr><td colspan="5">Loading...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Snake Leaderboard -->
+    <section class="leaderboard-section">
+      <h2>Snake</h2>
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>High Score</th>
+          </tr>
+        </thead>
+        <tbody id="snake-leaderboard-body">
+          <tr><td colspan="3">Loading...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Memory Leaderboard -->
+    <section class="leaderboard-section">
+      <h2>Memory</h2>
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Best Turns</th>
+          </tr>
+        </thead>
+        <tbody id="memory-leaderboard-body">
+          <tr><td colspan="3">Loading...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+
+  <a href="hub.html" class="button corner-btn corner-left">Back to Hub</a>
+
+  <script>
+    async function loadTTTLeaderboard() {
+      const tbody = document.getElementById("ttt-leaderboard-body");
+      try {
+        const response = await fetch(`${apiBase}/leaderboard/tictactoe`);
+        const data = await response.json();
+        if (!response.ok || data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5">No scores yet.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = "";
+        data.forEach((entry, i) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${i + 1}</td>
+            <td>${entry.player_name}</td>
+            <td>${entry.wins}</td>
+            <td>${entry.draws}</td>
+            <td>${entry.losses}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error("Error loading TTT leaderboard:", err);
+        tbody.innerHTML = `<tr><td colspan="5">Error loading leaderboard.</td></tr>`;
+      }
+    }
+
+    async function loadSnakeLeaderboard() {
+      const tbody = document.getElementById("snake-leaderboard-body");
+      try {
+        const response = await fetch(`${apiBase}/leaderboard/snake`);
+        const data = await response.json();
+        if (!response.ok || data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="3">No scores yet.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = "";
+        data.forEach((entry, i) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${i + 1}</td>
+            <td>${entry.player_name}</td>
+            <td>${entry.high_score}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error("Error loading Snake leaderboard:", err);
+        tbody.innerHTML = `<tr><td colspan="3">Error loading leaderboard.</td></tr>`;
+      }
+    }
+
+    async function loadMemoryLeaderboard() {
+      const tbody = document.getElementById("memory-leaderboard-body");
+      try {
+        const response = await fetch(`${apiBase}/leaderboard/memory`);
+        const data = await response.json();
+        if (!response.ok || data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="3">No scores yet.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = "";
+        data.forEach((entry, i) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${i + 1}</td>
+            <td>${entry.player_name}</td>
+            <td>${entry.best_turns}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error("Error loading Memory leaderboard:", err);
+        tbody.innerHTML = `<tr><td colspan="3">Error loading leaderboard.</td></tr>`;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadTTTLeaderboard();
+      loadSnakeLeaderboard();
+      loadMemoryLeaderboard();
+    });
+  </script>
+
+</body>
+</html>

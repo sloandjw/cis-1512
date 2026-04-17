@@ -9,6 +9,7 @@ const startGameButton = document.getElementById("start-game");
 const getPointsButton = document.getElementById("get-points");
 const submitPointsButton = document.getElementById("submit-points");
 const resetGameButton = document.getElementById("reset-game");
+const playAgainButton = document.getElementById("play-again");
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
 const speed = 80;
@@ -40,7 +41,8 @@ function initializeGame() {
     gameSection.style.display = "none";
     startGameButton.onclick = () => {
         scoreDisplay.textContent = `Score: 0`;
-        resetGameButton.style.display = "flex";
+        resetGameButton.style.display = "block";
+        playAgainButton.style.display = "none";
         startSection.style.display = "none";
         gameSection.style.display = "flex";
         spawnFood();
@@ -53,6 +55,15 @@ function startGame() {
     gameState.interval = setInterval(update, speed);
     resetGameButton.onclick = async () => {
         scoreDisplay.textContent = `Score: 0`;
+        playAgainButton.style.display = "none";
+        resetGameState();
+        spawnFood();
+        startGame();
+    };
+    playAgainButton.onclick = async () => {
+        scoreDisplay.textContent = `Score: 0`;
+        playAgainButton.style.display = "none";
+        resetGameButton.style.display = "block";
         resetGameState();
         spawnFood();
         startGame();
@@ -158,6 +169,8 @@ async function endGame() {
     gameState.gameOver = true;
     clearInterval(gameState.interval);
     scoreDisplay.textContent = `Game Over! Score: ${gameState.score}`;
+    resetGameButton.style.display = "none";
+    playAgainButton.style.display = "block";
     // await submitScore();
     await submitGameScore(gameName, gameState.score)
 }
