@@ -37,7 +37,7 @@ initializeGame();
 //methods
 function initializeGame() {
     resetGameState();
-    startSection.style.display = "block";
+    startSection.style.display = "flex";
     gameSection.style.display = "none";
     startGameButton.onclick = () => {
         scoreDisplay.textContent = `Score: 0`;

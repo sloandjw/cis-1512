@@ -16,7 +16,7 @@ let losses = 0;
 // start screen
 startBtn.addEventListener("click", () => {
   startScreen.style.display = "none";
-  gameScreen.style.display = "block";
+  gameScreen.style.display = "flex";
   createBoard();
   updateScoreboard();
 });
