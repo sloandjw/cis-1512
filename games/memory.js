@@ -139,16 +139,14 @@ function announcePoints(message1) {
 }
 
 function checkPoints() {
-    if (moves = 8) {
+    if (moves <= 8) {
         points = 100;
-    } else if(moves >= 9 && moves <= 12) {
+    } else if (moves <= 12) {
         points = 50;
-    } else if(moves >= 13 && moves <= 15) {
+    } else if (moves <= 15) {
         points = 30;
-    } else if(moves >= 16) {
-        points = 10;
     } else {
-        print("can't calculate points");
+        points = 10;
     }
 }
 
