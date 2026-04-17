@@ -1,0 +1,163 @@
+***clear saved player info in browser***
+
+localStorage.removeItem("playerName");
+localStorage.removeItem("playerId");
+
+***git commands***
+
+git checkout main
+git pull origin main
+git pull origin main --no-rebase
+git fetch origin
+git checkout -b your-branch-name
+git add .
+git commit -m "Describe your changes here"
+git push origin your-branch-name
+git stash && git pull origin main && git stash pop
+git reset --hard HEAD
+git reset --hard origin/combos
+git clean -f -d
+
+***node server***
+
+-access-
+
+//root
+ssh -i ~/.ssh/nodeserver root@162.243.174.19
+safe%keep
+//server
+ssh -i ~/.ssh/nodeserver server@162.243.174.19
+safe%keep
+
+-creation-
+
+ssh -i ~/.ssh/nodeserver root@162.243.174.19
+apt update && apt upgrade -y
+apt install -y nodejs npm
+node -v
+    v18.19.1
+npm -v
+    9.2.0
+apt install -y git
+
+-add user-
+
+adduser server
+password safe%keep
+//give user sudo privileges
+usermod -aG sudo server
+//copy SSH access
+rsync --archive --chown=server:server ~/.ssh /home/server
+//give permission to site folders
+sudo chown -R server:server /var/www
+
+-clone repo-
+cd /var/www
+git clone https://github.com/sloandjw/cis-1512
+cd cis-1512/arcadehub-server
+
+-run server manual for testing-
+node server.js
+http://162.243.174.19:3000
+    should see Server is running
+
+-run server with process manager for deployment-
+npm install -g pm2
+cd /var/www/cis-1512/arcadehub-server
+pm2 start server.js --name arcadehub
+pm2 save
+pm2 startup
+
+//install Nginx - acts as a reverse proxy, handling SSL/TLS, load balancing, and routing traffic to your Node.js app
+apt install -y nginx
+nano /etc/nginx/sites-available/main
+
+//configure Nginx    
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name _;
+
+    root /var/www/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location /cis-1440/ {
+        alias /var/www/cis-1440/;
+        index index.html;
+        try_files $uri $uri/ $uri/index.html =404;
+    }
+
+    location /cis-1512/api/ {
+        proxy_pass http://127.0.0.1:3000/api/;
+    }
+
+    location /cis-1512/leaderboard {
+        proxy_pass http://127.0.0.1:3000/leaderboard;
+    }
+    
+    location /cis-1512/debug {
+        proxy_pass http://127.0.0.1:3000/debug;
+    }
+
+    location /cis-1512/ {
+        alias /var/www/cis-1512/;
+        index index.html;
+        try_files $uri $uri/ $uri/index.html =404;
+    }
+}
+
+//may need to change permissions (not sure if this was necessary)
+sudo chmod o+rx /root
+sudo chmod o+rx /root/cis-1512
+sudo chmod -R o+rX /root/cis-1512/arcadehub-server
+
+//enable it
+ln -s /etc/nginx/sites-available/arcadehub /etc/nginx/sites-enabled/
+nginx -t
+systemctl restart nginx
+
+//firewall
+ufw allow OpenSSH
+ufw allow 'Nginx Full'
+ufw enable
+
+**debug**
+
+162.243.174.19/cis-1512/index.html
+162.243.174.19/cis-1512/debug/players
+162.243.174.19/cis-1512/debug/scores
+162.243.174.19/cis-1512/leaderboard
+
+**remove specific player from db**
+//apt install sqlite3
+cd cis-1512/arcadehub-server
+sqlite3 scores.db
+SELECT * FROM players WHERE player_name = 'David';
+DELETE FROM players WHERE player_name = 'David';
+.quit
+
+**update server repo**
+git fetch origin
+git checkout returning-user
+git pull origin returning-user
+
+**restart server**
+pm2 restart all
+
+**server status**
+pm2 list
+pm2 status
+
+**reset db**
+rm scores.db
+pm2 restart all
+
+**reload Nginx**
+sudo nginx -t
+sudo systemctl reload nginx

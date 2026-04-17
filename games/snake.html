@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ArcadeHub - Snake</title>
+  <script src="../shared/shared.js" defer></script>
+  <script src="snake.js" defer></script>
+  <link rel="stylesheet" href="../shared/shared.css">
+</head>
+<body class="centered">
+
+    <h1>Snake</h1>
+    
+    <div id="start-section" style="display:none;">
+      <h1>Use WASD or Arrow Keys to Move</h1>
+      <button id="start-game" class="button">Start Game</button>
+    </div>
+    
+    <div id="game-section" style="display:none;">
+      <p id="score-display" class="score"></p>
+      <canvas id="game-canvas" width="400" height="400"></canvas>
+      <!--<div class="button-row">
+        <button id="get-points" class="test-button">Get Points</button>
+        <button id="submit-points" class="test-button">Submit Points</button>
+      </div>-->
+      <button id="reset-game" class="button" style="display:none">Reset Game</button>
+    </div>
+  
+    <a href="../hub.html" class="button">Back to Hub</a>
+
+</body>
+</html>
