@@ -113,11 +113,12 @@ function resetTurn() {
     updateMoveCount();
 }
 
-function checkWin() {
+async function checkWin() {
     if (matchedPairs === memoryCards.length / 2) {
         announceStatus(`You won in ${moves} moves!`);
         checkPoints();
         announcePoints(`You got ${pointsGotten} points!`);
+        await submitScore();
     }
 }
 
@@ -148,5 +149,39 @@ function checkPoints() {
         points += 1;
     } else {
         print("can't calculate points");
+    }
+}
+
+async function submitScore() {
+    const playerId = localStorage.getItem("playerId");
+    const playerName = localStorage.getItem("playerName");
+    if (!playerId || !playerName) {
+        console.log("Missing player data in localStorage.");
+        return;
+    }
+    try {
+        //const response = await fetch(`/api/scores`, {
+        const response = await fetch(`${apiBase}/api/scores`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                player_id: playerId,
+                game_name: gameName,
+                score: points
+            })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            console.error("Submit failed:", data);
+            console.log("Failed to submit score.");
+            return;
+        }
+        console.log("Score submitted successfully:", data);
+        console.log("Score submitted successfully.");
+    } catch (error) {
+        console.error("Error submitting score:", error);
+        console.log("Error submitting score.");
     }
 }
