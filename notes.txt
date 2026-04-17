@@ -72,9 +72,10 @@ pm2 startup
 
 //install Nginx - acts as a reverse proxy, handling SSL/TLS, load balancing, and routing traffic to your Node.js app
 apt install -y nginx
-nano /etc/nginx/sites-available/main
 
-//configure Nginx    
+
+//configure Nginx
+sudo nano /etc/nginx/sites-available/ls
 
 server {
     listen 80 default_server;
