@@ -1,3 +1,5 @@
+const gameName = "Memory";
+
 const startBtn = document.getElementById("start-btn");
 const startScreen = document.getElementById("start-screen");
 const resetBtn = document.getElementById("reset-btn");
@@ -69,7 +71,7 @@ function renderMemoryGrid() {
     lockBoard = false;
     updateMoveCount();
     announceStatus("Start matching cards!");
-    announcePoints("You have 0 points.")
+    announcePoints("You have 0 points");
 }
 
 function flipMemoryCard(card) {
@@ -112,11 +114,12 @@ function resetTurn() {
     updateMoveCount();
 }
 
-function checkWin() {
+async function checkWin() {
     if (matchedPairs === memoryCards.length / 2) {
         announceStatus(`You won in ${moves} moves!`);
         checkPoints();
         announcePoints(`You got ${points} points!`);
+        await submitScore();
     }
 }
 
@@ -133,15 +136,49 @@ function announcePoints(message1) {
 }
 
 function checkPoints() {
-    if (moves <= 8) {
-        points = 10;
+    if (moves = 8) {
+        points = 100;
     } else if(moves >= 9 && moves <= 12) {
-        points = 5;
+        points = 50;
     } else if(moves >= 13 && moves <= 15) {
-        points = 3;
+        points = 30;
     } else if(moves >= 16) {
-        points = 1;
+        points = 10;
     } else {
         print("can't calculate points");
+    }
+}
+
+async function submitScore() {
+    const playerId = localStorage.getItem("playerId");
+    const playerName = localStorage.getItem("playerName");
+    if (!playerId || !playerName) {
+        console.log("Missing player data in localStorage.");
+        return;
+    }
+    try {
+        //const response = await fetch(`/api/scores`, {
+        const response = await fetch(`${apiBase}/api/scores`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                player_id: playerId,
+                game_name: gameName,
+                score: points
+            })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            console.error("Submit failed:", data);
+            console.log("Failed to submit score.");
+            return;
+        }
+        console.log("Score submitted successfully:", data);
+        console.log("Score submitted successfully.");
+    } catch (error) {
+        console.error("Error submitting score:", error);
+        console.log("Error submitting score.");
     }
 }
