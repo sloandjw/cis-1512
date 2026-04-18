@@ -139,9 +139,11 @@ ufw enable
 
 **remove specific player from db**
 //apt install sqlite3
-cd cis-1512/arcadehub-server
+cd /var/www/cis-1512/arcadehub-server
 sqlite3 scores.db
 SELECT * FROM players WHERE player_name = 'David';
+SELECT * FROM scores WHERE game_name = 'Memory' AND score = 100;
+DELETE FROM scores WHERE game_name = 'Memory' AND score = 100;
 DELETE FROM players WHERE player_name = 'David';
 .quit
 

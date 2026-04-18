@@ -130,7 +130,7 @@ app.get("/api/players/:playerId", (req, res) => {
 
 // *************Scores******************
 
-app.get("/api/leaderboard", (req, res) => {
+app.get("/api/leaderboard/:game", (req, res) => {
   const sql = `
     SELECT 
       s.game_name, 
