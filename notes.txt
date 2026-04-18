@@ -135,7 +135,7 @@ ufw enable
 162.243.174.19/cis-1512/index.html
 162.243.174.19/cis-1512/debug/players
 162.243.174.19/cis-1512/debug/scores
-162.243.174.19/cis-1512/leaderboard
+162.243.174.19/cis-1512/api/leaderboard/Memory
 
 **remove specific player from db**
 //apt install sqlite3
