@@ -78,26 +78,33 @@ async function loadLeaderboards() {
             });
         }
 
-        // --- Memory: fewest turns per player ---
-        const memoryScores = scores.filter(s => s.game_name === "Memory");
-        const memoryBest = {};
-        memoryScores.forEach(s => {
-            if (!memoryBest[s.player_name] || s.score < memoryBest[s.player_name]) {
-                memoryBest[s.player_name] = s.score;
-            }
-        });
-        const memoryRanked = Object.entries(memoryBest).sort((a, b) => a[1] - b[1]);
+   // --- Memory: fewest turns per player ---
+const memoryScores = scores.filter(s => s.game_name === "Memory");
+const memoryBest = {};
+memoryScores.forEach(s => {
+    if (!memoryBest[s.player_name] || s.score < memoryBest[s.player_name]) {
+        memoryBest[s.player_name] = s.score;
+    }
+});
+const memoryRanked = Object.entries(memoryBest).sort((a, b) => a[1] - b[1]);
 
-        if (memoryRanked.length === 0) {
-            memoryBody.innerHTML = `<tr><td colspan="3">No scores yet.</td></tr>`;
-        } else {
-            memoryBody.innerHTML = "";
-            memoryRanked.forEach(([name, turns], i) => {
-                const row = document.createElement("tr");
-                row.innerHTML = `<td>${i + 1}</td><td>${name}</td><td>${turns}</td>`;
-                memoryBody.appendChild(row);
-            });
-        }
+function movesToPoints(moves) {
+    if (moves <= 8) return 100;
+    if (moves <= 12) return 50;
+    if (moves <= 15) return 30;
+    return 10;
+}
+
+if (memoryRanked.length === 0) {
+    memoryBody.innerHTML = `<tr><td colspan="4">No scores yet.</td></tr>`;
+} else {
+    memoryBody.innerHTML = "";
+    memoryRanked.forEach(([name, turns], i) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td>${i + 1}</td><td>${name}</td><td>${turns}</td><td>${movesToPoints(turns)}</td>`;
+        memoryBody.appendChild(row);
+    });
+}
 
         // --- TicTacToe: aggregate W/D/L per player ---
         const tttScores = scores.filter(s => s.game_name === "TicTacToe");

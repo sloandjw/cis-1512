@@ -141,7 +141,7 @@ app.get("/api/leaderboard", (req, res) => {
     FROM scores s
     JOIN players p ON s.player_id = p.player_id
     ORDER BY s.score DESC, s.created_at ASC
-    LIMIT 10
+    LIMIT 64
   `;
 
   db.all(sql, [], (err, rows) => {
