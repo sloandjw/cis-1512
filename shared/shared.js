@@ -39,26 +39,19 @@ async function submitGameScore(gameName, score) {
     }
 }
 
-// Load leaderboard data and populate game-specific tables
+// Load leaderboard data using per-game endpoints
 async function loadLeaderboards() {
     const tttBody = document.getElementById("ttt-leaderboard-body");
     const snakeBody = document.getElementById("snake-leaderboard-body");
     const memoryBody = document.getElementById("memory-leaderboard-body");
     if (!tttBody || !snakeBody || !memoryBody) return;
 
+    // --- Snake: highest score per player ---
     try {
-        const response = await fetch(`${apiBase}/leaderboard`);
-        const scores = await response.json();
+        const response = await fetch(`${apiBase}/api/leaderboard/Snake`);
+        const snakeScores = await response.json();
+        if (!response.ok) throw new Error("Failed");
 
-        if (!response.ok) {
-            tttBody.innerHTML = `<tr><td colspan="5">Failed to load.</td></tr>`;
-            snakeBody.innerHTML = `<tr><td colspan="3">Failed to load.</td></tr>`;
-            memoryBody.innerHTML = `<tr><td colspan="3">Failed to load.</td></tr>`;
-            return;
-        }
-
-        // --- Snake: highest score per player ---
-        const snakeScores = scores.filter(s => s.game_name === "Snake");
         const snakeBest = {};
         snakeScores.forEach(s => {
             if (!snakeBest[s.player_name] || s.score > snakeBest[s.player_name]) {
@@ -77,37 +70,53 @@ async function loadLeaderboards() {
                 snakeBody.appendChild(row);
             });
         }
-
-   // --- Memory: fewest turns per player ---
-const memoryScores = scores.filter(s => s.game_name === "Memory");
-const memoryBest = {};
-memoryScores.forEach(s => {
-    if (!memoryBest[s.player_name] || s.score < memoryBest[s.player_name]) {
-        memoryBest[s.player_name] = s.score;
+    } catch (error) {
+        console.error("Error loading Snake leaderboard:", error);
+        snakeBody.innerHTML = `<tr><td colspan="3">Error loading leaderboard.</td></tr>`;
     }
-});
-const memoryRanked = Object.entries(memoryBest).sort((a, b) => a[1] - b[1]);
 
-function movesToPoints(moves) {
-    if (moves <= 8) return 100;
-    if (moves <= 12) return 50;
-    if (moves <= 15) return 30;
-    return 10;
-}
+    // --- Memory: fewest turns per player ---
+    function movesToPoints(moves) {
+        if (moves <= 8) return 100;
+        if (moves <= 12) return 50;
+        if (moves <= 15) return 30;
+        return 10;
+    }
 
-if (memoryRanked.length === 0) {
-    memoryBody.innerHTML = `<tr><td colspan="4">No scores yet.</td></tr>`;
-} else {
-    memoryBody.innerHTML = "";
-    memoryRanked.forEach(([name, turns], i) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `<td>${i + 1}</td><td>${name}</td><td>${turns}</td><td>${movesToPoints(turns)}</td>`;
-        memoryBody.appendChild(row);
-    });
-}
+    try {
+        const response = await fetch(`${apiBase}/api/leaderboard/Memory`);
+        const memoryScores = await response.json();
+        if (!response.ok) throw new Error("Failed");
 
-        // --- TicTacToe: aggregate W/D/L per player ---
-        const tttScores = scores.filter(s => s.game_name === "TicTacToe");
+        const memoryBest = {};
+        memoryScores.forEach(s => {
+            if (!memoryBest[s.player_name] || s.score < memoryBest[s.player_name]) {
+                memoryBest[s.player_name] = s.score;
+            }
+        });
+        const memoryRanked = Object.entries(memoryBest).sort((a, b) => a[1] - b[1]);
+
+        if (memoryRanked.length === 0) {
+            memoryBody.innerHTML = `<tr><td colspan="4">No scores yet.</td></tr>`;
+        } else {
+            memoryBody.innerHTML = "";
+            memoryRanked.forEach(([name, turns], i) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${i + 1}</td><td>${name}</td><td>${turns}</td><td>${movesToPoints(turns)}</td>`;
+                memoryBody.appendChild(row);
+            });
+        }
+    } catch (error) {
+        console.error("Error loading Memory leaderboard:", error);
+        memoryBody.innerHTML = `<tr><td colspan="4">Error loading leaderboard.</td></tr>`;
+    }
+
+    // --- TicTacToe: aggregate W/D/L per player ---
+    try {
+        const response = await fetch(`${apiBase}/api/leaderboard/TicTacToe`);
+        const tttScores = await response.json();
+        if (!response.ok) throw new Error("Failed");
+
         const tttStats = {};
         tttScores.forEach(s => {
             if (!tttStats[s.player_name]) {
@@ -129,12 +138,9 @@ if (memoryRanked.length === 0) {
                 tttBody.appendChild(row);
             });
         }
-
     } catch (error) {
-        console.error("Error loading leaderboard:", error);
+        console.error("Error loading TicTacToe leaderboard:", error);
         tttBody.innerHTML = `<tr><td colspan="5">Error loading leaderboard.</td></tr>`;
-        snakeBody.innerHTML = `<tr><td colspan="3">Error loading leaderboard.</td></tr>`;
-        memoryBody.innerHTML = `<tr><td colspan="3">Error loading leaderboard.</td></tr>`;
     }
 }
 
