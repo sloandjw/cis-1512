@@ -47,7 +47,7 @@ async function loadLeaderboards() {
     if (!tttBody || !snakeBody || !memoryBody) return;
 
     try {
-        const response = await fetch(`${apiBase}/leaderboard`);
+        const response = await fetch(`${apiBase}/api/leaderboard`);
         const scores = await response.json();
 
         if (!response.ok) {
