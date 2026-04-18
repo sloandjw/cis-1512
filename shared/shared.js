@@ -77,10 +77,11 @@ async function loadLeaderboards() {
 
     // --- Memory: fewest turns per player ---
     function movesToPoints(moves) {
-        if (moves <= 8) return 100;
-        if (moves <= 12) return 50;
-        if (moves <= 15) return 30;
-        return 10;
+        const pointsTable = {
+            5: 1000, 6: 200, 7: 150, 8: 100, 9: 80, 10: 60,
+            11: 45, 12: 30, 13: 20, 14: 10, 15: 5
+        };
+        return pointsTable[moves] || 0;
     }
 
     try {

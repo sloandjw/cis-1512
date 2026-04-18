@@ -71,7 +71,7 @@ function renderMemoryGrid() {
     lockBoard = false;
     updateMoveCount();
     announceStatus("Start matching cards!");
-    announcePoints("You have 0 points.");
+    announcePoints("Points: 0");
     resetBtn.style.display = "none";
 }
 
@@ -119,7 +119,7 @@ async function checkWin() {
     if (matchedPairs === memoryCards.length / 2) {
         announceStatus(`You won in ${moves} moves!`);
         checkPoints();
-        announcePoints(`You got ${points} points!`);
+        announcePoints(`Points: ${points}`);
         resetBtn.style.display = "block";
         // Submit turn count to leaderboard (lower is better)
         submitGameScore('Memory', moves);
@@ -139,15 +139,11 @@ function announcePoints(message1) {
 }
 
 function checkPoints() {
-    if (moves <= 8) {
-        points = 100;
-    } else if (moves <= 12) {
-        points = 50;
-    } else if (moves <= 15) {
-        points = 30;
-    } else {
-        points = 10;
-    }
+    const pointsTable = {
+        5: 1000, 6: 200, 7: 150, 8: 100, 9: 80, 10: 60,
+        11: 45, 12: 30, 13: 20, 14: 10, 15: 5
+    };
+    points = pointsTable[moves] || 0;
 }
 
 async function submitScore() {

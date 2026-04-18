@@ -14,10 +14,8 @@
   </div>
   <main class="memory-flexbox" id="memory-mode" hidden>
     <div class="game-info">
-      <p id="moves">Moves: 0</p>
-      <p id="points">You have 0 points</p>
       <p id="status" aria-live="polite">Start matching cards!</p>
-      <ol>Instructions: 
+      <ol>Instructions:
         <li>Flip over cards to find matching pairs</li>
         <li>Only flip two cards at a time </li>
         <li>When all matching pairs are found, the game is over</li>
@@ -26,15 +24,26 @@
     <div class="centered">
       <h1>Memory Match</h1>
       <div id="memory-grid" class="memory-grid" role="grid" aria-label="Memory card grid"></div>
+      <div style="display: flex; justify-content: space-around; width: 100%; font-size: 1.5rem; margin-top: 1rem;">
+        <p id="moves" style="border: 2px solid white; outline: 2px solid #4488ff; padding: 8px 16px; border-radius: 8px;">Moves: 0</p>
+        <p id="points" style="border: 2px solid white; outline: 2px solid #4488ff; padding: 8px 16px; border-radius: 8px;">Points: 0</p>
+      </div>
       <button id="reset-btn" class="play-btn" style="font-size:36px; padding:16px 40px;">Play Again</button>
     </div>
-    <div>
-      <p>Points Ranges</p>
-      <ul>
+    <div style="margin-left: 3rem;">
+      <p>Scoring Guide</p>
+      <ul style="font-size: 0.75rem;">
+        <li>6 moves = 200 Points</li>
+        <li>7 moves = 150 Points</li>
         <li>8 moves = 100 Points</li>
-        <li>9 - 12 moves = 50 Points</li>
-        <li>13 - 15 moves = 30 Points</li>
-        <li>16+ moves = 10 Point</li>
+        <li>9 moves = 80 Points</li>
+        <li>10 moves = 60 Points</li>
+        <li>11 moves = 45 Points</li>
+        <li>12 moves = 30 Points</li>
+        <li>13 moves = 20 Points</li>
+        <li>14 moves = 10 Points</li>
+        <li>15 moves = 5 Points</li>
+        <li>16+ moves = 0 Points</li>
       </ul>
     </div>
   </main>
