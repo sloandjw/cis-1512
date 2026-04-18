@@ -12,6 +12,7 @@ let gameOver = false;
 let wins = 0;
 let draws = 0;
 let losses = 0;
+let isPlayerTurn = true;
 
 // start screen
 startBtn.addEventListener("click", () => {
@@ -38,9 +39,11 @@ function createBoard() {
   });
 }
 
-// player makes a move
-function playerMove(index) {
-  if (board[index] !== "" || gameOver) return;
+  // player makes a move
+  function playerMove(index) {
+    if (board[index] !== "" || gameOver || !isPlayerTurn) return;
+
+    isPlayerTurn = false; // locks input
 
   board[index] = "X";
   updateBoard();
@@ -68,15 +71,32 @@ function playerMove(index) {
   setTimeout(computerMove, 500);
 }
 
-// computer makes a move
+// computer makes a move ***added strategy***
 function computerMove() {
-  let emptyCells = board
-    .map((val, idx) => val === "" ? idx : null)
-    .filter(val => val !== null);
+  if (gameOver) return;
 
-  let randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-  board[randomIndex] = "O";
+  let move = findWinningMove("O");
+  if (move === null) {
+    move = findWinningMove("X");
+  }
 
+  if (move === null && board[4] === "") {
+    move = 4;
+  }
+
+  const corners = [0, 2, 6, 8];
+  if (move === null) {
+    const availableCorners = corners.filter(i => board[i] === "");
+    if (availableCorners.length > 0) {
+      move = availableCorners[Math.floor(Math.random() * availableCorners.length)];
+    }
+  }
+  if (move == null) {
+    let emptyCells = board.map((val, idx) => (val === "" ? idx : null)).filter((val) => val !== null);
+    move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+  }
+
+  board[move] = "O";
   updateBoard();
 
   if (checkWinner("O")) {
@@ -97,6 +117,24 @@ function computerMove() {
     playAgainBtn.style.display = "block";
     submitGameScore("TicTacToe", 0);
   }
+
+  isPlayerTurn = true; // unlocks input
+}
+function findWinningMove(player) {
+  const winPatterns = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]
+  ];
+
+  for (let pattern of winPatterns) {
+    const [a, b, c] = pattern;
+    const values = [board[a], board[b], board[c]];
+    if (values.filter(v => v === player).length === 2 && values.includes("")) {
+      return pattern[values.indexOf("")];
+    }
+  }
+  return null;
 }
 
 // update the board display
@@ -133,6 +171,7 @@ function updateScoreboard() {
 function resetGame() {
   board = ["", "", "", "", "", "", "", "", ""];
   gameOver = false;
+  isPlayerTurn = true;
   statusText.innerText = "";
   playAgainBtn.style.display = "none";
   createBoard();
