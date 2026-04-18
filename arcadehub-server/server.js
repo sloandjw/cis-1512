@@ -131,6 +131,7 @@ app.get("/api/players/:playerId", (req, res) => {
 // *************Scores******************
 
 app.get("/api/leaderboard/:game", (req, res) => {
+  const { game } = req.params;
   const sql = `
     SELECT 
       s.game_name, 
@@ -140,11 +141,12 @@ app.get("/api/leaderboard/:game", (req, res) => {
       s.created_at
     FROM scores s
     JOIN players p ON s.player_id = p.player_id
+    WHERE s.game_name = ?
     ORDER BY s.score DESC, s.created_at ASC
     LIMIT 64
   `;
 
-  db.all(sql, [], (err, rows) => {
+  db.all(sql, [game], (err, rows) => {
     if (err) {
       console.error("Error fetching leaderboard:", err.message);
       return res.status(500).json({ error: "Failed to fetch leaderboard" });
