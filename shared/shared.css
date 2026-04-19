@@ -198,6 +198,8 @@ body {
   perspective: 600px;
   overflow: hidden;
   box-sizing: border-box;
+  border: 0px solid red;
+
 }
 
 .memory-card-front, .memory-card-back {
@@ -211,22 +213,25 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 3rem;
   transition: transform 0.3s ease;
 }
 
 .memory-card-front {
   background: black;
-  border: 2px solid rgb(255, 0, 0);
+  border: 2px solid red;
   z-index: 1;
 }
 
 .memory-card-back {
-  background: rgb(255, 0, 0);
-  color: white;
+  background: rgb(0, 0, 0);
   border: 2px solid white;
   z-index: 2;
   display: none;
+}
+
+.memory-card.matched .memory-card-back {
+  border: 2px solid #4488ff
 }
 
 .memory-card.flipped .memory-card-front {
