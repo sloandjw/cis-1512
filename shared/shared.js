@@ -117,6 +117,7 @@ async function loadLeaderboards() {
         const response = await fetch(`${apiBase}/api/leaderboard/TicTacToe`);
         const tttScores = await response.json();
         if (!response.ok) throw new Error("Failed");
+        console.log("TicTacToe scores:", tttScores);
 
         const tttStats = {};
         tttScores.forEach(s => {
