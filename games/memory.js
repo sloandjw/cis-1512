@@ -19,18 +19,18 @@ resetBtn.addEventListener("click", () => {
 });
 
 const memoryCards = [
-    { id: 1, label: "🎮", pairId: "html" },
-    { id: 2, label: "🎮", pairId: "html" },
-    { id: 3, label: "🕹️", pairId: "css" },
-    { id: 4, label: "🕹️", pairId: "css" },
-    { id: 5, label: "🧩", pairId: "js" },
-    { id: 6, label: "🧩", pairId: "js" },
-    { id: 7, label: "👾", pairId: "dom" },
-    { id: 8, label: "👾", pairId: "dom" },
-    { id: 9, label: "🎲", pairId: "grid" },
-    { id: 10, label: "🎲", pairId: "grid" },
-    { id: 11, label: "💰", pairId: "flex" },
-    { id: 12, label: "💰", pairId: "flex" }
+    { id: 1, label: "⚡", pairId: "1" },
+    { id: 2, label: "⚡", pairId: "1" },
+    { id: 3, label: "🚀", pairId: "2" },
+    { id: 4, label: "🚀", pairId: "2" },
+    { id: 5, label: "🧩", pairId: "3" },
+    { id: 6, label: "🧩", pairId: "3" },
+    { id: 7, label: "🎸", pairId: "4" },
+    { id: 8, label: "🎸", pairId: "4" },
+    { id: 9, label: "🎲", pairId: "5" },
+    { id: 10, label: "🎲", pairId: "5" },
+    { id: 11, label: "🏆", pairId: "6" },
+    { id: 12, label: "🏆", pairId: "6" }
 ];
 
 //Memory match logic
@@ -144,38 +144,4 @@ function checkPoints() {
         11: 45, 12: 30, 13: 20, 14: 10, 15: 5
     };
     points = pointsTable[moves] || 0;
-}
-
-async function submitScore() {
-    const playerId = localStorage.getItem("playerId");
-    const playerName = localStorage.getItem("playerName");
-    if (!playerId || !playerName) {
-        console.log("Missing player data in localStorage.");
-        return;
-    }
-    try {
-        //const response = await fetch(`/api/scores`, {
-        const response = await fetch(`${apiBase}/api/scores`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                player_id: playerId,
-                game_name: gameName,
-                score: points
-            })
-        });
-        const data = await response.json();
-        if (!response.ok) {
-            console.error("Submit failed:", data);
-            console.log("Failed to submit score.");
-            return;
-        }
-        console.log("Score submitted successfully:", data);
-        console.log("Score submitted successfully.");
-    } catch (error) {
-        console.error("Error submitting score:", error);
-        console.log("Error submitting score.");
-    }
 }
