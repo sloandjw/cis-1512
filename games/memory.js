@@ -131,7 +131,7 @@ function updateMoveCount() {
 }
 
 function announceStatus(message) {
-    document.getElementById("status").textContent = message;
+    // document.getElementById("status").textContent = message;
 }
 
 function announcePoints(message1) {
