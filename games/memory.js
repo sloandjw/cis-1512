@@ -19,18 +19,18 @@ resetBtn.addEventListener("click", () => {
 });
 
 const memoryCards = [
-    { id: 1, label: "HTML", pairId: "html" },
-    { id: 2, label: "HTML", pairId: "html" },
-    { id: 3, label: "CSS", pairId: "css" },
-    { id: 4, label: "CSS", pairId: "css" },
-    { id: 5, label: "JS", pairId: "js" },
-    { id: 6, label: "JS", pairId: "js" },
-    { id: 7, label: "DOM", pairId: "dom" },
-    { id: 8, label: "DOM", pairId: "dom" },
-    { id: 9, label: "Grid", pairId: "grid" },
-    { id: 10, label: "Grid", pairId: "grid" },
-    { id: 11, label: "Flex", pairId: "flex" },
-    { id: 12, label: "Flex", pairId: "flex" }
+    { id: 1, label: "🎮", pairId: "html" },
+    { id: 2, label: "🎮", pairId: "html" },
+    { id: 3, label: "🕹️", pairId: "css" },
+    { id: 4, label: "🕹️", pairId: "css" },
+    { id: 5, label: "🧩", pairId: "js" },
+    { id: 6, label: "🧩", pairId: "js" },
+    { id: 7, label: "👾", pairId: "dom" },
+    { id: 8, label: "👾", pairId: "dom" },
+    { id: 9, label: "🎲", pairId: "grid" },
+    { id: 10, label: "🎲", pairId: "grid" },
+    { id: 11, label: "💰", pairId: "flex" },
+    { id: 12, label: "💰", pairId: "flex" }
 ];
 
 //Memory match logic

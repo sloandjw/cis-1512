@@ -211,7 +211,7 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 3rem;
   transition: transform 0.3s ease;
 }
 
@@ -222,7 +222,7 @@ body {
 }
 
 .memory-card-back {
-  background: rgb(255, 0, 0);
+  background: grey;
   color: white;
   border: 2px solid white;
   z-index: 2;
