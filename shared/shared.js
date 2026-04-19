@@ -64,7 +64,7 @@ async function loadLeaderboards() {
             snakeBody.innerHTML = `<tr><td colspan="3">No scores yet.</td></tr>`;
         } else {
             snakeBody.innerHTML = "";
-            snakeRanked.forEach(([name, score], i) => {
+            snakeRanked.slice(0, 10).forEach(([name, score], i) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `<td>${i + 1}</td><td>${name}</td><td>${score}</td>`;
                 snakeBody.appendChild(row);
@@ -101,7 +101,7 @@ async function loadLeaderboards() {
             memoryBody.innerHTML = `<tr><td colspan="4">No scores yet.</td></tr>`;
         } else {
             memoryBody.innerHTML = "";
-            memoryRanked.forEach(([name, turns], i) => {
+            memoryRanked.slice(0, 10).forEach(([name, turns], i) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `<td>${i + 1}</td><td>${name}</td><td>${turns}</td><td>${movesToPoints(turns)}</td>`;
                 memoryBody.appendChild(row);
@@ -134,7 +134,7 @@ async function loadLeaderboards() {
             tttBody.innerHTML = `<tr><td colspan="5">No scores yet.</td></tr>`;
         } else {
             tttBody.innerHTML = "";
-            tttRanked.forEach(([name, stats], i) => {
+            tttRanked.slice(0, 10).forEach(([name, stats], i) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `<td>${i + 1}</td><td>${name}</td><td>${stats.wins}</td><td>${stats.draws}</td><td>${stats.losses}</td>`;
                 tttBody.appendChild(row);
